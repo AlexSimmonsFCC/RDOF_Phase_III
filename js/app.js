@@ -7,12 +7,30 @@ require([
   'esri/layers/WebTileLayer',
   'esri/widgets/Search',
   'esri/widgets/Home',
-  'esri/widgets/Locate'
+  'esri/widgets/Locate',
+  "esri/portal/Portal",
+  "esri/identity/OAuthInfo",
+  "esri/identity/IdentityManager",
+  "esri/portal/PortalQueryParams"
 ],
-    function (Map, MapView, Basemap, VectorTileLayer, FeatureLayer, WebTileLayer, Search, Home, Locate) {
+    function (Map, MapView, Basemap, VectorTileLayer, FeatureLayer, WebTileLayer, Search, Home, Locate, Portal, OAuthInfo, esriId, PortalQueryParams) {
       var map, view, searchWidget, homeBtn, locateBtn
       var layers = window.layers
       var featLayers = []
+
+
+
+  var info = new OAuthInfo({
+  // Swap this ID out with registered application ID
+  appId: "5gNN43w5fIZ7AWRS",
+  // Uncomment the next line and update if using your own portal
+  // portalUrl: "https://<host>:<port>/arcgis"
+  // Uncomment the next line to prevent the user's signed in state from being shared with other apps on the same domain with the same authNamespace value.
+  // authNamespace: "portal_oauth_inline",
+  popup: false
+});
+
+esriId.registerOAuthInfos([info]);
 
         // Create base layer from Mapbox street layer
       var mapBaseLayer = new WebTileLayer({
