@@ -120,15 +120,15 @@ var info = new OAuthInfo({
 esriId.registerOAuthInfos([info]);
 
 
- esriId.checkSignInStatus(info.portalUrl + "/sharing")
-          .then(function() {
-            displayItems();
-          })
-          .catch(function() {
-            // Anonymous view
-            anonPanelElement.style.display = "block";
-            personalPanelElement.style.display = "none";
-          });
+//  esriId.checkSignInStatus(info.portalUrl + "/sharing")
+//           .then(function() {
+//             displayItems();
+//           })
+//           .catch(function() {
+//             // Anonymous view
+//             anonPanelElement.style.display = "block";
+//             personalPanelElement.style.display = "none";
+//           });
 
         document
           .getElementById("sign-in")
