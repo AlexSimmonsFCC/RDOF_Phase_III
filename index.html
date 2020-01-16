@@ -120,29 +120,28 @@ var info = new OAuthInfo({
 esriId.registerOAuthInfos([info]);
 
 
-//  esriId.checkSignInStatus(info.portalUrl + "/sharing")
-//           .then(function() {
-//             displayItems();
-//           })
-//           .catch(function() {
-//             // Anonymous view
+  esriId.checkSignInStatus(info.portalUrl + "/sharing")
+           .then(function() {
+             displayItems();
+          })
+//            .catch(function() {
 //             anonPanelElement.style.display = "block";
-//             personalPanelElement.style.display = "none";
+//              personalPanelElement.style.display = "none";
+//            });
+
+//         document
+//           .getElementById("sign-in")
+//           .addEventListener("click", function() {
+//             // user will be redirected to OAuth Sign In page
+//             esriId.getCredential(info.portalUrl + "/sharing");
 //           });
 
-        document
-          .getElementById("sign-in")
-          .addEventListener("click", function() {
-            // user will be redirected to OAuth Sign In page
-            esriId.getCredential(info.portalUrl + "/sharing");
-          });
-
-        document
-          .getElementById("sign-out")
-          .addEventListener("click", function() {
-            esriId.destroyCredentials();
-            window.location.reload();
-          });
+//         document
+//           .getElementById("sign-out")
+//           .addEventListener("click", function() {
+//             esriId.destroyCredentials();
+//             window.location.reload();
+//           });
     
     
     
