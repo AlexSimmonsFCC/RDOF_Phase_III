@@ -120,51 +120,6 @@ var info = new OAuthInfo({
 esriId.registerOAuthInfos([info]);
 
 
-  esriId.checkSignInStatus(info.portalUrl + "/sharing")
-           .then(function() {
-             displayItems();
-          })
-//            .catch(function() {
-//             anonPanelElement.style.display = "block";
-//              personalPanelElement.style.display = "none";
-//            });
-
-//         document
-//           .getElementById("sign-in")
-//           .addEventListener("click", function() {
-//             // user will be redirected to OAuth Sign In page
-//             esriId.getCredential(info.portalUrl + "/sharing");
-//           });
-
-//         document
-//           .getElementById("sign-out")
-//           .addEventListener("click", function() {
-//             esriId.destroyCredentials();
-//             window.location.reload();
-//           });
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-
-
-
-
-
 
         // Create base layer from Mapbox street layer
       var mapBaseLayer = new WebTileLayer({
@@ -284,17 +239,17 @@ esriId.registerOAuthInfos([info]);
       // Add tile layers to map
       
         map.add(ineligible_area_without_border)
-       ineligible_area_without_border.maxScale = 2200000;
+        ineligible_area_without_border.maxScale = 2200000;
       
-       map.add(ineligible_area_with_border)
-       ineligible_area_with_border.minScale = 2199999;  
+//        map.add(ineligible_area_with_border)
+//        ineligible_area_with_border.minScale = 2199999;  
       
       
-      map.add(area_no_border)
-       area_no_border.maxScale = 2200000;
+//       map.add(area_no_border)
+//        area_no_border.maxScale = 2200000;
       
-       map.add(area_with_border)
-       area_with_border.minScale = 2199999;
+//        map.add(area_with_border)
+//        area_with_border.minScale = 2199999;
       
       
 //       map.add(elig_locs_no_border)
