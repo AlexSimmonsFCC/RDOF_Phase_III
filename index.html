@@ -11,6 +11,14 @@
 </head>
 
 <style>
+    
+       #viewDiv {
+        padding: 0;
+        margin: 0;
+        height: 100%;
+        width: 100%;
+      }
+    
  #helptext {
         border-radius: 10px;
         position: fixed;
@@ -139,17 +147,12 @@ esriId.registerOAuthInfos([info]);
       })
 
         // Make map view and bind it to the map
-      view = new MapView({
-        container: 'map',
-        map: map,
-        center: [-90, 40.48],
-        zoom: 5,
-        constraints: {
-          minZoom: 4,
-          maxZoom: 13,
-          rotationEnabled: false
-        }
-      })
+ var view = new MapView({
+          container: "viewDiv",
+          map: map,
+          center: [-95.3, 38.397],
+          zoom: 5
+        });
 
         // Add search widget
 //       searchWidget = new Search({
@@ -435,6 +438,7 @@ esriId.registerOAuthInfos([info]);
 
 <body>
     <main class="map-container">
+        <div id="viewDiv"></div> 
         <div id="btn-openLayerCtrl" class="esri-ui-corner">
             <div class="icon-layers esri-component esri-widget-button esri-widget"></div>
         </div>        
