@@ -95,11 +95,10 @@ require([
   "esri/portal/Portal",
   "esri/identity/OAuthInfo",
   "esri/identity/IdentityManager",
-  "esri/portal/PortalQueryParams",
   "esri/widgets/Legend",
   "esri/PopupTemplate"
 ],
-    function (Map, MapView, Basemap, VectorTileLayer, FeatureLayer, WebTileLayer, Search, Home, Locate, Portal, OAuthInfo, esriId, PortalQueryParams, Legend, PopupTemplate) {
+    function (Map, MapView, Basemap, VectorTileLayer, FeatureLayer, WebTileLayer, Search, Home, Locate, Portal, OAuthInfo, esriId, Legend, PopupTemplate) {
       var map, view, searchWidget, homeBtn, locateBtn
       var layers = window.layers
       var featLayers = []
@@ -109,7 +108,7 @@ require([
 
 var info = new OAuthInfo({
   // Swap this ID out with registered application ID
-  appId: "FEoVx8EQwrKk45qH",
+  appId: "qSccn2T7ozS1TxqK",
   // Uncomment the next line and update if using your own portal
   // portalUrl: "https://<host>:<port>/arcgis"
   // Uncomment the next line to prevent the user's signed in state from being shared with other apps on the same domain with the same authNamespace value.
