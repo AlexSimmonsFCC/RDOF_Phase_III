@@ -142,12 +142,12 @@ esriId.registerOAuthInfos([info]);
 //       })
 
         // Create map
-      map = new Map({
-        basemap: "dark-gray"
-      })
+        var map = new Map({
+          basemap: "dark-gray"
+        });
 
         // Make map view and bind it to the map
- var view = new MapView({
+        var view = new MapView({
           container: "viewDiv",
           map: map,
           center: [-95.3, 38.397],
@@ -437,7 +437,6 @@ esriId.registerOAuthInfos([info]);
 
 
 <body>
-    <main class="map-container">
         <div id="viewDiv"></div> 
         <div id="btn-openLayerCtrl" class="esri-ui-corner">
             <div class="icon-layers esri-component esri-widget-button esri-widget"></div>
