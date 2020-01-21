@@ -5,8 +5,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
     <title>Connect America Phase II Auction: Final Eligible Areas - FCC Maps</title>
-    <link rel="stylesheet" href="https://js.arcgis.com/4.3/esri/css/main.css">
-    <script src="https://js.arcgis.com/4.3/"></script>
+    <link rel="stylesheet" href="https://js.arcgis.com/4.8/esri/css/main.css">
+    <script src="https://js.arcgis.com/4.8/"></script>
     <link rel="stylesheet" href="css/styles.css">
 </head>
 
@@ -220,7 +220,7 @@ esriId.registerOAuthInfos([info]);
       visible: false})
 
       var ineligible_area_without_border = new VectorTileLayer({
-      url: 'https://tiles.arcgis.com/tiles/YnOQrIGdN9JGtBh4/arcgis/rest/services/Blocks_Groups_With_Elig_Blocks_No_Border/VectorTileServer',
+      url: 'https://tiles.arcgis.com/tiles/YnOQrIGdN9JGtBh4/arcgis/rest/services/RuralityTiersVTL/VectorTileServer',
       visible: false})
 
       var ineligible_area_with_border = new VectorTileLayer({
@@ -240,11 +240,11 @@ esriId.registerOAuthInfos([info]);
         map.add(ineligible_area_without_border)
         ineligible_area_without_border.maxScale = 2200000;
       
-        map.add(ineligible_area_with_border)
-        ineligible_area_with_border.minScale = 2199999;  
+//         map.add(ineligible_area_with_border)
+//         ineligible_area_with_border.minScale = 2199999;  
 
-         map.add(area_no_border)
-         area_no_border.maxScale = 2200000;
+//          map.add(area_no_border)
+//          area_no_border.maxScale = 2200000;
       
 //        map.add(area_with_border)
 //        area_with_border.minScale = 2199999;
