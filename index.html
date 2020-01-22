@@ -230,6 +230,10 @@ var dojoConfig = {
       var ineligible_area_with_border = new VectorTileLayer({
       url: 'https://tiles.arcgis.com/tiles/YnOQrIGdN9JGtBh4/arcgis/rest/services/Blocks_Groups_With_Eligible_Blocks_With_Border/VectorTileServer',
       visible: false})
+      
+//       var cbg_boundary_lines = new VectorTileLayer({
+//       url: 'https://tiles.arcgis.com/tiles/YnOQrIGdN9JGtBh4/arcgis/rest/services/Blocks_Groups_With_Eligible_Blocks_With_Border/VectorTileServer',
+//       visible: false})
 
       // Create feature layers
       var fLayer = new FeatureLayer({
@@ -281,7 +285,7 @@ var dojoConfig = {
           
         map.add(split_blocks) 
       
-//        map.add(fLayer) 
+        map.add(fLayer) 
 
       
      document.getElementById("elig_area_legend").style.visibility = 'visible';
