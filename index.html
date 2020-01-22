@@ -193,14 +193,17 @@ var dojoConfig = {
     $("#split_blocks_legend_high").hide();
 
 
- view.on("click", function(){
-  console.log('You have clicked the map.')
+
+ view.on("click", function(event){
+      var query = fLayer.createQuery();
+       query.returnGeometry = true;
+       query.outFields = ["*"];
+       query.geometry = event.mapPoint;
+       fLayer.queryFeatures(query).then(function (resp) {
+        });
 });
-    
-    
-    
-    
-    
+
+
   //   Create vector tile layer
       var area_no_border = new VectorTileLayer({
       url: 'https://tiles.arcgis.com/tiles/YnOQrIGdN9JGtBh4/arcgis/rest/services/RuDOF_Eligible_CBGs/VectorTileServer',})
