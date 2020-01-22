@@ -195,12 +195,14 @@ var dojoConfig = {
 
 
  view.on("click", function(event){
-      var query = fLayer.createQuery();
+       console.log('Hi!')
+       var query = fLayer.createQuery();
        query.returnGeometry = true;
        query.outFields = ["*"];
        query.geometry = event.mapPoint;
        fLayer.queryFeatures(query).then(function (resp) {
-        });
+       console.log(resp);
+       });
 });
 
 
