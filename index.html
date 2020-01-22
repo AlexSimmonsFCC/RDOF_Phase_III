@@ -245,7 +245,8 @@ var dojoConfig = {
 
       // Create Tile Layer of Eligible Area 
         var TileLayer = new TileLayer({
-        url: 'https://tiles.arcgis.com/tiles/YnOQrIGdN9JGtBh4/arcgis/rest/services/RuDOF_Eligible_CGB_Boundary_Lines/VectorTileServer'
+        url: 'https://tiles.arcgis.com/tiles/YnOQrIGdN9JGtBh4/arcgis/rest/services/RuDOF_Eligible_CGB_Boundary_Lines/VectorTileServer',
+        popupEnabled: true
       }) 
       
       
@@ -301,9 +302,9 @@ var dojoConfig = {
         map.add(split_blocks) 
       
 //         map.add(fLayer) 
-        map.add(TileLayer)
+     map.add(TileLayer)
     
- TileLayer.popupTemplate = template
+    TileLayer.popupTemplate = template
       
      document.getElementById("elig_area_legend").style.visibility = 'visible';
       
