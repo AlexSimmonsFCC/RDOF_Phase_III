@@ -108,7 +108,6 @@ require([
 
 
 
-
 var info = new OAuthInfo({
   appId: "ilUD28Q0NqmDjSX8",
   popup: false
@@ -194,6 +193,14 @@ var dojoConfig = {
     $("#split_blocks_legend_high").hide();
 
 
+ view.on("click", function(){
+  console.log('You have clicked the map.')
+});
+    
+    
+    
+    
+    
   //   Create vector tile layer
       var area_no_border = new VectorTileLayer({
       url: 'https://tiles.arcgis.com/tiles/YnOQrIGdN9JGtBh4/arcgis/rest/services/RuDOF_Eligible_CBGs/VectorTileServer',})
