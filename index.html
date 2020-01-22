@@ -234,8 +234,7 @@ var dojoConfig = {
       visible: false})
       
       var cbg_boundary_lines = new VectorTileLayer({
-      url: 'https://tiles.arcgis.com/tiles/YnOQrIGdN9JGtBh4/arcgis/rest/services/RuDOF_Eligible_CGB_Boundary_Lines/VectorTileServer',
-      visible: false})
+      url: 'https://tiles.arcgis.com/tiles/YnOQrIGdN9JGtBh4/arcgis/rest/services/RuDOF_Eligible_CGB_Boundary_Lines/VectorTileServer')
 
       // Create feature layers
       var fLayer = new FeatureLayer({
@@ -252,7 +251,7 @@ var dojoConfig = {
       
       
       
-      fLayer.popupTemplate = template
+   //   fLayer.popupTemplate = template
 
 
  view.on("click", function(event){
@@ -302,7 +301,8 @@ var dojoConfig = {
       
 //         map.add(fLayer) 
         map.add(TileLayer)
-
+    
+ TileLayer.popupTemplate = template
       
      document.getElementById("elig_area_legend").style.visibility = 'visible';
       
