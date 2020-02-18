@@ -1,969 +1,445 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8" />
-    <title>Rural Digital Opportunity Fund Areas</title>
-    <link rel="stylesheet" href="https://js.arcgis.com/4.14/esri/themes/light/main.css"/>
-    <script src="https://js.arcgis.com/4.14/"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <link rel="stylesheet" href="css/styles.css">
-</head>
-    <style>
+/*!
+ *  Font Awesome 4.4.0 by @davegandy - http://fontawesome.io - @fontawesome
+ *  License - http://fontawesome.io/license (Font: SIL OFL 1.1, CSS: MIT License)
+ */
+ 
+/*  @font-face{font-family:'FontAwesome';src:url('../fonts/fontawesome-webfont.eot?v=4.5.0');src:url('../fonts/fontawesome-webfont.eot?#iefix&v=4.5.0') format('embedded-opentype'),url('../fonts/fontawesome-webfont.woff2?v=4.5.0') format('woff2'),url('../fonts/fontawesome-webfont.woff?v=4.5.0') format('woff'),url('../fonts/fontawesome-webfont.ttf?v=4.5.0') format('truetype'),url('../fonts/fontawesome-webfont.svg?v=4.5.0#fontawesomeregular') format('svg');font-weight:normal;font-style:normal}.icon{display:inline-block;font:normal normal normal 14px/1 FontAwesome;font-size:inherit;text-rendering:auto;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}.icon-lg{font-size:1.33333333em;line-height:.75em;vertical-align:-15%}.icon-2x{font-size:2em}.icon-3x{font-size:3em}.icon-4x{font-size:4em}.icon-5x{font-size:5em}.icon-fw{width:1.28571429em;text-align:center}.icon-ul{padding-left:0;margin-left:2.14285714em;list-style-type:none}.icon-ul>li{position:relative}.icon-li{position:absolute;left:-2.14285714em;width:2.14285714em;top:.14285714em;text-align:center}.icon-li.icon-lg{left:-1.85714286em}.icon-border{padding:.2em .25em .15em;border:solid .08em #eee;border-radius:.1em}.icon-pull-left{float:left}.icon-pull-right{float:right}.icon.icon-pull-left{margin-right:.3em}.icon.icon-pull-right{margin-left:.3em}.pull-right{float:right}.pull-left{float:left}.icon.pull-left{margin-right:.3em}.icon.pull-right{margin-left:.3em}.icon-spin{-webkit-animation:fa-spin 2s infinite linear;animation:fa-spin 2s infinite linear}.icon-pulse{-webkit-animation:fa-spin 1s infinite steps(8);animation:fa-spin 1s infinite steps(8)}@-webkit-keyframes fa-spin{0%{-webkit-transform:rotate(0deg);transform:rotate(0deg)}100%{-webkit-transform:rotate(359deg);transform:rotate(359deg)}}@keyframes fa-spin{0%{-webkit-transform:rotate(0deg);transform:rotate(0deg)}100%{-webkit-transform:rotate(359deg);transform:rotate(359deg)}}.icon-rotate-90{filter:progid:DXImageTransform.Microsoft.BasicImage(rotation=1);-webkit-transform:rotate(90deg);-ms-transform:rotate(90deg);transform:rotate(90deg)}.icon-rotate-180{filter:progid:DXImageTransform.Microsoft.BasicImage(rotation=2);-webkit-transform:rotate(180deg);-ms-transform:rotate(180deg);transform:rotate(180deg)}.icon-rotate-270{filter:progid:DXImageTransform.Microsoft.BasicImage(rotation=3);-webkit-transform:rotate(270deg);-ms-transform:rotate(270deg);transform:rotate(270deg)}.icon-flip-horizontal{filter:progid:DXImageTransform.Microsoft.BasicImage(rotation=0, mirror=1);-webkit-transform:scale(-1, 1);-ms-transform:scale(-1, 1);transform:scale(-1, 1)}.icon-flip-vertical{filter:progid:DXImageTransform.Microsoft.BasicImage(rotation=2, mirror=1);-webkit-transform:scale(1, -1);-ms-transform:scale(1, -1);transform:scale(1, -1)}:root .icon-rotate-90,:root .icon-rotate-180,:root .icon-rotate-270,:root .icon-flip-horizontal,:root .icon-flip-vertical{filter:none}.icon-stack{position:relative;display:inline-block;width:2em;height:2em;line-height:2em;vertical-align:middle}.icon-stack-1x,.icon-stack-2x{position:absolute;left:0;width:100%;text-align:center}.icon-stack-1x{line-height:inherit}.icon-stack-2x{font-size:2em}.icon-inverse{color:#fff}.icon-external-link-square:before{content:"\f14c"}.icon-search:before{content:"\f002"}.icon-caret-right:before{content:"\f0da"}.icon-caret-down:before{content:"\f0d7"}.icon-location-arrow:before{content:"\f124"}.icon-globe:before{content:"\f0ac"}.icon-close:before,.icon-times:before{content:"\f00d"}.icon-list:before{content:"\f03a"}.icon-map-marker:before{content:"\f041"}.icon-file-code-o:before{content:"\f1c9"}.icon-code:before{content:"\f121"}.icon-database:before{content:"\f1c0"}.icon-question:before{content:"\f128"} */
 
-    
-   #helptext {
-        border-radius: 10px;
-        position: fixed;
-        height: 105px;
-        font-family: arial;
-        margin: 5px;
-        padding: 10px;
-        z-index: 40;
-        background: #D3D3D3;
-        color: #444;
+html,
+body,
+#map {
+    font-family: sans-serif;
+    font-size: 12px;
+    padding: 0;
+    margin: 0;
+    height: 100%;
+    width: 100%;
+}
+
+.btn {
+    display: inline-block;
+    margin-bottom: 0;
+    font-weight: normal;
+    text-align: center;
+    vertical-align: middle;
+    touch-action: manipulation;
+    cursor: pointer;
+    background-image: none;
+    border: 1px solid transparent;
+    white-space: nowrap;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    border-radius: 4px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.btn-xs, .btn-group-xs>.btn {
+    margin-top: -3px;
+    padding: 1px 5px;
+    font-size: 12px;
+    line-height: 1.5;
+    border-radius: 3px;
+}
+
+.map-container {
+    height: 100%;
+    position: relative;
+    width: 100%;
+}
+
+.layer-control {
+    background-color: #fff;
+    border: solid 1px #999999;
+    left: 15px;
+    padding: 10px;
+    position: absolute;
+    top: 175px;
+    z-index: 9;
+    width: 250px;
+}
+
+.layer-control ul {
+    list-style-type: none;
+    margin: 10px 0 0;
+    padding: 0;
+}
+
+.layer-control li {
+    margin: 7px 0 0;
+}
+
+.layer-control label {
+    margin-left: 20px;
+    display: block;
+}
+
+.layer-control input[type=radio] {
+    float: left;
+    margin: 0;
+}
+
+/* .icon-layers {
+    background: url('../img/icon-layers.png') center center no-repeat #fff;
+    left: 15px;
+    position: absolute;
+    top: 175px;
+    z-index: 9;
+} */
+
+#btn-closeLayerCtrl {
+       display: inline-block;
+       margin-top: -3px;
+}
+
+@media (min-width: 480px) {
+    .layer-control {
+        display: block !important;
+        left: inherit;
+        bottom: 30px;    
+        right: 20px;
+        top: inherit;
         width: auto;
-        left: 65px;
-        top: 15px;
-        -moz-box-shadow: 0 0 10px #888;
-        -webkit-box-shadow: 0 0 10px #888;
-        box-shadow: 0 0 10px #888;
-        border-color: #212223;
-        border-width: 2px;
-        border-style: solid;
-             } 
-  
-  #splitblocks {
-        border-radius: 10px;
-        position: fixed;
-        height: auto;
-        font-family: arial;
-        padding: 10px;
-        z-index: 40;
-        background: #D3D3D3;
-        color: #444;
-        width: auto;
-        left: 71px;
-        top: 153px;
-        -moz-box-shadow: 0 0 10px #888;
-        -webkit-box-shadow: 0 0 10px #888;
-        box-shadow: 0 0 10px #888;
-        border-color: #212223;
-        border-width: 2px;
-        border-style: solid;
-             } 
-             
-             
-             
-             
-     #toggle_area {
-        border-radius: 10px;
-        position: fixed;
-        height: auto;
-        font-family: arial;
-        z-index: 40;
-        background: #D3D3D3;
-        color: #444;
-        width: auto;
-        left: 86px;
-        top: 110px;
-
-             } 
-
-
-
-     
-      
-    </style>
-
-    <script>
-    
-     
-    
-      
-require([
-  'esri/Map',
-  'esri/views/MapView',
-  'esri/Basemap',
-  'esri/layers/VectorTileLayer',
-  'esri/layers/FeatureLayer',
-  'esri/layers/WebTileLayer',
-  'esri/widgets/Search',
-  'esri/widgets/Home',
-  'esri/widgets/Locate',
-  "esri/portal/Portal",
-  "esri/identity/OAuthInfo",
-  "esri/identity/IdentityManager",
-  "esri/portal/PortalQueryParams",
-  "esri/widgets/Legend",
-  "esri/PopupTemplate",
-  "esri/geometry/Point",
-  "esri/layers/TileLayer",
-  "esri/layers/MapImageLayer"
-],
-    function (Map, MapView, Basemap, VectorTileLayer, FeatureLayer, WebTileLayer, Search, Home, Locate, Portal,
-               OAuthInfo, esriId, PortalQueryParams, Legend, PopupTemplate, Point, TileLayer, MapImageLayer) {
-      var map, view, searchWidget, homeBtn, locateBtn
-      var layers = window.layers
-      var featLayers = []
-
-var dojoConfig = {
-    has: {
-      "esri-featurelayer-webgl": 1
     }
-  };
 
-        // Create base layer from Mapbox street layer
-      var mapBaseLayer = new WebTileLayer({
-        urlTemplate: 'https://{subDomain}.tiles.mapbox.com/v4/fcc.map-toolde8w/{level}/{col}/{row}.png?access_token=pk.eyJ1IjoiZmNjIiwiYSI6InBiaGMyLU0ifQ.LOmVYpUCFv2yWpbvxDdQNg',
-        subDomains: ['a', 'b', 'c', 'd'],
-        copyright: '\u00A9 OpenStreetMap contributors Design \u00A9 Mapbox'
-      })
+    #btn-closeLayerCtrl, #btn-openLayerCtrl {
+        display: none;
+    }
+}
 
-        // Create base map from Mapbox layer
-      var mapBox = new Basemap({
-        baseLayers: [mapBaseLayer],
-        title: 'Street'
-      })
+.map-legend {
+    background-color: #fff;
+    border: solid 1px #999999;
+    bottom: 30px;
+    left: 20px;
+    min-width: 150px;
+    padding: 5px;
+    position: absolute;
+    z-index: 2
+}
 
-        // Create map
-      map = new Map({
-        basemap: mapBox
-      })
+.map-legend .icon-list {
+    font-size: 13px
+}
 
-        // Make map view and bind it to the map
-      view = new MapView({
-        container: 'map',
-        map: map,
-        center: [-121, 38.48],
-        zoom: 5,
-        constraints: {
-          minZoom: 4,
-          maxZoom: 13,
-          rotationEnabled: false
+.map-legend table {
+    width: 100%
+}
+
+/* .map-legend tbody td:first-child {
+    height: 28px;
+    width: 28px
+} */
+
+.legend__icon {
+    background-color: transparent;
+    bottom: 30px;
+    font-size: 16px;
+    cursor: pointer;
+    left: 20px;
+    padding: 0;
+    position: absolute;
+    z-index: 1
+}
+
+.legend__icon:focus,
+.legend__icon:active {
+    outline: none
+}
+
+.key-symbol {
+    border: solid 1px #999;
+    height: 20px;
+    width: 20px
+}
+
+
+ .key-symbol-line {
+    border: solid 1px #999;
+    height: 0px;
+    width: 25px
+} 
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+}
+
+.esri-popup-renderer li {
+    font-size: 14px;
+}
+
+
+@mixin can-toggle-branding(
+  $can-toggle-off-color: #777, 
+  $can-toggle-on-color: #777,
+  $can-toggle-inactive-text: rgba(white, 0.5),
+  $can-toggle-transition: cubic-bezier(0,1,0.5,1)
+) {
+  
+  input[type="checkbox"] {
+    
+    &[disabled] ~ label {
+      color: rgba($can-toggle-off-color, 0.5);
+    }
+    
+    &:focus ~ label, &:hover ~ label {
+      .can-toggle__switch {
+        background-color: $can-toggle-off-color;
+        &:after { color: darken($can-toggle-off-color, 10%); }
+      }
+    }
+    &:hover ~label { color: darken($can-toggle-off-color, 5%); }
+    &:checked {
+      ~ label {
+        &:hover { color: darken($can-toggle-on-color, 3%); }
+        
+        .can-toggle__switch {
+          background-color: lighten($can-toggle-on-color, 5%);
+          &:after { color: darken($can-toggle-on-color, 5%); }
         }
-      })
-
-        // Add search widget
-      searchWidget = new Search({
-        view: view
-      })
-
-        // Position search widget
-      view.ui.add(searchWidget, {
-        position: 'top-right',
-        index: 2
-      })
-
-        // Add Home widget
-      homeBtn = new Home({
-        view: view
-      })
-
-        // Position Home widget
-      view.ui.add(homeBtn, 'top-left')
-
-        // Add locate widget
-      locateBtn = new Locate({
-        view: view
-      })
-
-        // Position locate widget
-      view.ui.add(locateBtn, {
-        position: 'top-left'
-      })
-
-//       var template = {
-//         title: 'Block Group: {BlockGroup}',
-//         content: '<ul style="margin-top: 0"><li>Locations = {EligLocs}</li><li>Reserve = {AnnSup}</li><ul>'
-//       }
-      
-      
-          
-      
-          var cbg_locs_template = {
-          // autocasts as new PopupTemplate()
-          title: "Block Group: {BlockGroup}",
-          content: [
-            {
-              // It is also possible to set the fieldInfos outside of the content
-              // directly in the popupTemplate. If no fieldInfos is specifically set
-              // in the content, it defaults to whatever may be set within the popupTemplate.
-              type: "fields",
-              fieldInfos: [
-                {
-                  fieldName: "EligLocs",
-                  label: "Locations"
-                }
-              ]
-            }
-          ]
-        };
-      
-         var cbg_support_template = {
-          // autocasts as new PopupTemplate()
-          title: "Block Group: {BlockGroup}",
-          content: [
-            {
-              // It is also possible to set the fieldInfos outside of the content
-              // directly in the popupTemplate. If no fieldInfos is specifically set
-              // in the content, it defaults to whatever may be set within the popupTemplate.
-              type: "fields",
-              fieldInfos: [
-                {
-                  fieldName: "AnnSup",
-                  label: "Annual Support:"
-                }
-              ]
-            }
-          ]
-        };
-      
-          
-      
-      
-          var tracts_locs_template = {
-          // autocasts as new PopupTemplate()
-          title: "Tract: {Final_Elig}",
-          content: [
-            {
-              // It is also possible to set the fieldInfos outside of the content
-              // directly in the popupTemplate. If no fieldInfos is specifically set
-              // in the content, it defaults to whatever may be set within the popupTemplate.
-              type: "fields",
-              fieldInfos: [
-                {
-                  fieldName: "Final_El_1",
-                  label: "Locations"
-                }
-              ]
-            }
-          ]
-        };
-      
-      
-         var tracts_support_template = {
-          // autocasts as new PopupTemplate()
-          title: "Tract: {Final_Elig}",
-          content: [
-            {
-              // It is also possible to set the fieldInfos outside of the content
-              // directly in the popupTemplate. If no fieldInfos is specifically set
-              // in the content, it defaults to whatever may be set within the popupTemplate.
-              type: "fields",
-              fieldInfos: [
-                {
-                  fieldName: "Final_El_2",
-                  label: "Annual Support:"
-                }
-              ]
-            }
-          ]
-        };
-      
-      
-          var tracts_area_template = {
-          // autocasts as new PopupTemplate()
-          title: "Tract: {Final_Elig}",
-          content: [
-            {
-              // It is also possible to set the fieldInfos outside of the content
-              // directly in the popupTemplate. If no fieldInfos is specifically set
-              // in the content, it defaults to whatever may be set within the popupTemplate.
-              type: "fields",
-              fieldInfos: [
-                {
-                  fieldName: "Final_El_1",
-                  label: "Locations:"
-                },
-                 {
-                  fieldName: "Final_El_2",
-                  label: "Annual Support:"
-                }
-              ]
-            }
-          ]
-        };
-      
-          var cbg_area_template = {
-          // autocasts as new PopupTemplate()
-          title: "Block Group: {BlockGroup}",
-          content: [
-            {
-              type: "fields",
-              fieldInfos: [
-                {
-                  fieldName: "EligLocs",
-                  label: "Locations:"
-                },
-                  {
-                  fieldName: "AnnSup",
-                  label: "Annual Support:"
-                }
-              ]
-            }
-          ]
-        };
-      
-      
-      
-    $("#elig_support_legend").hide();
-    $("#elig_locs_legend").hide();
-    
-    $("#elig_support_tracts_legend").hide();
-    $("#elig_locations_tracts_legend").hide();
-    
-    $("#split_blocks_legend_low").hide();
-    $("#split_blocks_legend_high").hide();
-
-
-  //   Create vector tile layers
-      var area_no_border = new VectorTileLayer({
-      url: 'https://tiles.arcgis.com/tiles/YnOQrIGdN9JGtBh4/arcgis/rest/services/RuDOF_Eligible_CBGs/VectorTileServer'})
-
-      var elig_locs_no_border = new VectorTileLayer({
-      url: 'https://tiles.arcgis.com/tiles/YnOQrIGdN9JGtBh4/arcgis/rest/services/EligibleCBGLocations/VectorTileServer',
-      visible: false})
-      
-      var elig_support_no_border = new VectorTileLayer({
-      url: 'https://tiles.arcgis.com/tiles/YnOQrIGdN9JGtBh4/arcgis/rest/services/EligibleCBGSupport/VectorTileServer',
-      visible: false}) 
-      
-      var cbg_boundary_lines = new VectorTileLayer({
-      url: 'https://tiles.arcgis.com/tiles/YnOQrIGdN9JGtBh4/arcgis/rest/services/RuDOF_Eligible_CGB_Boundary_Lines/VectorTileServer',
-      visible: false
-      })
-     cbg_boundary_lines.minScale = 2199999;       
-            
-      var elig_locs_no_border_tracts = new VectorTileLayer({
-      url: 'https://tiles.arcgis.com/tiles/YnOQrIGdN9JGtBh4/arcgis/rest/services/EligibleTractLocations/VectorTileServer',
-      visible: false})
-      
-      var elig_support_no_border_tracts = new VectorTileLayer({
-      url: 'https://tiles.arcgis.com/tiles/YnOQrIGdN9JGtBh4/arcgis/rest/services/EligibleTractSupport/VectorTileServer',
-      visible: false})
-      
-      var tract_boundary_lines = new VectorTileLayer({
-      url: 'https://tiles.arcgis.com/tiles/YnOQrIGdN9JGtBh4/arcgis/rest/services/RuDOF_Eligible_Tract_Boundary_Lines/VectorTileServer'})
-      tract_boundary_lines.minScale = 2199999;
-
-      
-      var split_blocks = new VectorTileLayer({
-      url: 'https://tiles.arcgis.com/tiles/YnOQrIGdN9JGtBh4/arcgis/rest/services/Split_Blocks/VectorTileServer',
-      visible: false})
-      
-
-      var BlocksFeatureLayer = new FeatureLayer({
-      url: "https://services.arcgis.com/YnOQrIGdN9JGtBh4/arcgis/rest/services/Final_Eligible_Blocks_CBG_Dissolve/FeatureServer",
-      visible: false});
-              
-      var TractFeatureLayer = new FeatureLayer({url:  "https://services.arcgis.com/YnOQrIGdN9JGtBh4/arcgis/rest/services/Final_Eligible_Tracts/FeatureServer"
-      });
-        
-        
-        
-
-      
-
-
-
-
-     
-
-
- view.on("click", function(event){
-      var query = BlocksFeatureLayer.createQuery();
-        query.returnGeometry = true;
-        query.outFields = ["*"];
-        query.geometry = event.mapPoint;
-        BlocksFeatureLayer.queryFeatures(query).then(function (resp) {
-        console.log('You clicked');
-        });
-});
-
-
-      // Add tile layers to map
-      
-       map.add(area_no_border)            
-       map.add(elig_locs_no_border)
-       map.add(elig_support_no_border)
-       map.add(elig_locs_no_border_tracts)
-       map.add(elig_support_no_border_tracts)
-       
-       map.add(cbg_boundary_lines);
-       map.add(tract_boundary_lines);
-       
-       map.add(BlocksFeatureLayer);
-       map.add(TractFeatureLayer);
-
-
-    
-    
-   //     map.add(split_blocks) 
-      
-
-     var area_toggle = document.getElementById("b"); 
-      
-     document.getElementById("elig_area_legend").style.visibility = 'visible';
-      
-   // Set Default (Area) FeatureLayer Popup Templates 
-   BlocksFeatureLayer.popupTemplate = cbg_area_template;
-   TractFeatureLayer.popupTemplate = tracts_area_template
-      
-      
-   // Create event listener and button actions for eligible area layer and legend
-      var elig_area_toggle = document.getElementById("B1");
-      elig_area_toggle.checked = true;
-
-      elig_area_toggle.addEventListener("change", function() {
-      document.getElementById("elig_area_legend").style.visibility = 'visible';
-      console.log('You are viewing eligible areas.')
-      if (area_toggle.checked == true) {
-      BlocksFeatureLayer.popupTemplate = cbg_area_template;
-      elig_locs_no_border_tracts.visible = false;
-      elig_support_no_border_tracts.visible = false;
-      elig_locs_no_border.visible = false;
-      elig_support_no_border.visible = false;
-      area_no_border.visible = true;
-      $("#elig_area_legend").fadeIn("fast");
-      $("#elig_locs_legend").fadeOut("fast");
-      $("#elig_support_legend").fadeOut("fast");
-      $("#elig_locations_tracts_legend").fadeOut("fast");
-      $("#elig_support_tracts_legend").fadeOut("fast");
-      } else if (area_toggle.checked == false){
-      TractFeatureLayer.popupTemplate = tracts_area_template;
-      elig_locs_no_border_tracts.visible = false;
-      elig_support_no_border_tracts.visible = false;
-      elig_locs_no_border.visible = false;
-      elig_support_no_border.visible = false;
-      area_no_border.visible = true;
-      $("#elig_area_legend").fadeIn("fast");
-      $("#elig_locs_legend").fadeOut("fast");
-      $("#elig_support_legend").fadeOut("fast");
-      $("#elig_locations_tracts_legend").fadeOut("fast");
-      $("#elig_support_tracts_legend").fadeOut("fast");
-      };
-      
-      if (elig_area_toggle.checked == true && split_blocks_toggle.checked == true){
-      $("#split_blocks_legend_high").fadeOut("fast");
-      $("#split_blocks_legend_low").fadeIn("fast");
-      };
-  });
-      
-
-    // Create event listener and button actionws for eligible locations layer and legend
-      var elig_locs_toggle = document.getElementById("B2");
-      document.getElementById("elig_locs_legend").style.visibility = 'visible';
-      elig_locs_toggle.addEventListener("change", function() {
-      if (area_toggle.checked == true) {
-      console.log('You are viewing eligible locations in block groups.')
-      BlocksFeatureLayer.popupTemplate = cbg_locs_template;
-      elig_locs_no_border.visible = true;
-      area_no_border.visible = false;
-      elig_locs_no_border_tracts.visible = false;
-      elig_support_no_border.visible = false;
-      elig_support_no_border_tracts.visible = false;
-      $("#elig_area_legend").fadeOut("fast");
-      $("#elig_support_legend").fadeOut("fast");
-      $("#elig_locs_legend").fadeIn("fast");
-      } 
-      
-      else if (area_toggle.checked == false){
-      TractFeatureLayer.popupTemplate = tracts_locs_template;
-      console.log('You are viewing eligible locations in tracts.')
-      elig_locs_no_border_tracts.visible = true;
-      area_no_border.visible = false;
-      elig_support_no_border.visible = false;
-      elig_support_no_border_tracts.visible = false;
-      elig_locs_no_border.visible = false;
-      $("#elig_area_legend").fadeOut("fast");
-      $("#elig_support_legend").fadeOut("fast");
-      $("#elig_locs_legend").fadeOut("fast");
-      $("#elig_locations_tracts_legend").fadeIn("fast");
-      $("#elig_support_tracts_legend").fadeOut("fast");
       }
       
-      
-      
-      if (elig_locs_toggle.checked == true && split_blocks_toggle.checked == true){
-      $("#split_blocks_legend_high").fadeIn("fast");
-      $("#split_blocks_legend_low").fadeOut("fast");
-      };
-  });
-
-       // Create event listener and button actionws for eligible suport layer and legend
-      var elig_support_toggle = document.getElementById("B3");
-      document.getElementById("elig_support_legend").style.visibility = 'visible';
-      elig_support_toggle.addEventListener("change", function() {
-      if (area_toggle.checked == true) {
-      BlocksFeatureLayer.popupTemplate = cbg_support_template;
-      console.log('You are viewing eligible support in block groups.')
-      elig_support_no_border.visible = true;
-      area_no_border.visible = false;
-      elig_support_no_border_tracts.visible = false;
-      elig_locs_no_border.visible = false;
-      elig_locs_no_border_tracts.visible = false;
-      $("#elig_area_legend").fadeOut("fast");
-      $("#elig_support_legend").fadeIn("fast");
-      $("#elig_locs_legend").fadeOut("fast");
-      $("#elig_support_tracts_legend").fadeOut("fast");
-      $("#elig_locations_tracts_legend").fadeOut("fast");
-      } 
-      
-      else if (area_toggle.checked == false){
-      TractFeatureLayer.popupTemplate = tracts_support_template;
-      console.log('You are viewing eligible support in tracts.')
-      elig_support_no_border_tracts.visible = true;
-      area_no_border.visible = false;
-      elig_support_no_border.visible = false;
-      elig_locs_no_border.visible = false;
-      elig_locs_no_border_tracts.visible = false;
-      $("#elig_area_legend").fadeOut("fast");
-      $("#elig_support_legend").fadeOut("fast");
-      $("#elig_locs_legend").fadeOut("fast");
-      $("#elig_support_tracts_legend").fadeIn("fast");
-      $("#elig_locations_tracts_legend").fadeOut("fast");
+      &:focus, &:hover {
+        ~ label {
+          .can-toggle__switch {
+            background-color: $can-toggle-on-color;
+            &:after { color: darken($can-toggle-on-color, 10%); }
+          }
+        } 
       }
-      
-      
-      
-      if (elig_locs_toggle.checked == true && split_blocks_toggle.checked == true){
-      $("#split_blocks_legend_high").fadeIn("fast");
-      $("#split_blocks_legend_low").fadeOut("fast");
-      }; 
-  });
-      
-      
-      
-      // Create event listener and button actionws for spit blocks and legend
-      var split_blocks_toggle = document.getElementById("C1");
-      split_blocks_toggle.addEventListener("change", function() {
-      split_blocks.visible = split_blocks_toggle.checked;
-      console.log('You turned on the split blocks layer.')
-      if (split_blocks_toggle.checked == true && elig_area_toggle.checked == true){
-      $("#split_blocks_legend_high").fadeOut("fast");
-      $("#split_blocks_legend_low").fadeIn("fast");
-      }
-      else if (split_blocks_toggle.checked == true && elig_area_toggle.checked == false){
-      $("#split_blocks_legend_high").fadeIn("fast");
-      $("#split_blocks_legend_low").fadeOut("fast");
-      }
-      else if (split_blocks_toggle.checked ==  false){
-      $("#split_blocks_legend_high").fadeOut("fast");
-      $("#split_blocks_legend_low").fadeOut("fast");
-      }
-  });
-      
-
-
-      // Create event listener and button actions for block groups/tracts toggle
-      var area_toggle = document.getElementById("b");
-      area_toggle.addEventListener("change", function() {
-      view.popup.close()
-      if (area_toggle.checked == true){
-      console.log('You are viewing Block Groups.');
-      BlocksFeatureLayer.visible = true;
-      cbg_boundary_lines.visible = true;
-      TractFeatureLayer.visible = false;
-      tract_boundary_lines.visible = false;
-      view.constraints = {minScale: 2199999};
-      view.zoom = 5;
-      } else if (area_toggle.checked == false){
-      console.log('You are viewing Tracts.');
-      BlocksFeatureLayer.visible = false;
-      TractFeatureLayer.visible = true;
-      tract_boundary_lines.visible = true;
-      cbg_boundary_lines.visible = false;
-      map.add(tract_boundary_lines);
-      view.constraints = {minScale: 19199999};
-      };
-      
-      if (area_toggle.checked == true && elig_locs_toggle.checked == true){
-      console.log('You are viewing the eligible locations in block groups')
-      BlocksFeatureLayer.popupTemplate = cbg_locs_template;
-      elig_locs_no_border.visible = true;
-      elig_locs_no_border_tracts.visible = false;
-      $("#elig_support_legend").fadeOut("fast");
-      $("#elig_locs_legend").fadeIn("fast");
-      $("#elig_locations_tracts_legend").fadeOut("fast");
-      $("#elig_support_tracts_legend").fadeOut("fast");
-      } else if (area_toggle.checked == false && elig_locs_toggle.checked == true){
-      TractFeatureLayer.popupTemplate = tracts_locs_template;
-      elig_locs_no_border.visible = false;
-      elig_locs_no_border_tracts.visible = true;
-      console.log('You are viewing the eligible locations in tracts')
-      $("#elig_support_legend").fadeOut("fast");
-      $("#elig_locs_legend").fadeOut("fast");
-      $("#elig_locations_tracts_legend").fadeIn("fast");
-      $("#elig_support_tracts_legend").fadeOut("fast");
-      };
+    }
+  }
   
-      if (area_toggle.checked == true && elig_support_toggle.checked == true){
-      BlocksFeatureLayer.popupTemplate = cbg_support_template;
-      elig_support_no_border.visible = true;
-      elig_support_no_border_tracts.visible = false;
-      console.log('You are viewing the eligible locations in block groups')
-      $("#elig_support_legend").fadeIn("fast");
-      $("#elig_locs_legend").fadeOut("fast");
-      $("#elig_locations_tracts_legend").fadeOut("fast");
-      $("#elig_support_tracts_legend").fadeOut("fast");
-      } else if (area_toggle.checked == false && elig_support_toggle.checked == true){
-      TractFeatureLayer.popupTemplate = tracts_support_template;
-      elig_support_no_border.visible = false;
-      elig_support_no_border_tracts.visible = true;     
-      console.log('You are viewing the eligible locations in tracts')
-      $("#elig_support_legend").fadeOut("fast");
-      $("#elig_locs_legend").fadeOut("fast");
-      $("#elig_locations_tracts_legend").fadeOut("fast");
-      $("#elig_support_tracts_legend").fadeIn("fast");
-      };
-      
-      if (area_toggle.checked == true && elig_area_toggle.checked == true){
-      BlocksFeatureLayer.popupTemplate = cbg_area_template;
-      console.log('You are viewing the eligible areas')
-      $("#elig_area_legend").fadeIn("fast");
-      $("#elig_support_legend").fadeOut("fast");
-      $("#elig_locs_legend").fadeOut("fast");
-      $("#elig_locations_tracts_legend").fadeOut("fast");
-      $("#elig_support_tracts_legend").fadeOut("fast");
-      } else if (area_toggle.checked == false && elig_area_toggle.checked == true){
-      TractFeatureLayer.popupTemplate = tracts_area_template
-      console.log('You are viewing the eligible locations in tracts')
-      $("#elig_area_legend").fadeIn("fast");
-      $("#elig_support_legend").fadeOut("fast");
-      $("#elig_locs_legend").fadeOut("fast");
-      $("#elig_locations_tracts_legend").fadeOut("fast");
-      $("#elig_support_tracts_legend").fadeOut("fast");
-      };
-      
-      
-      
-      
-  });
-
-
-
-    })
-
-      
-      
-
-      
-    </script>
-
- <body>
-    <main class="map-container">
-        <div id="btn-openLayerCtrl" class="esri-ui-corner">
-            <div class="icon-layers esri-component esri-widget-button esri-widget"></div>
-        </div>        
-        <div id="map"></div>
-        
-         <div id="helptext"><strong>&nbsp Select a Rural Digital Opportunity Fund Measure </strong>
-         <br><input type="radio" id="B1" name="Button" value="B1"> <label for="B3">Coverage Area</label>
-         <br><input type="radio" id="B2" name="Button" value="B2"> <label for="B2">Eligible Locations</label>
-         <br><input type="radio" id="B3" name="Button" value="B3"> <label for="B4">Annual Support</label><br>
-        </div>
-        
-        <div id ="toggle_area">
-        <div class="can-toggle can-toggle--size-small">
-  <input id="b" type="checkbox">
-  <label for="b">
-    <div class="can-toggle__switch" data-checked="Blocks Groups" data-unchecked="Tracts"></div>
-    <div class="can-toggle__label-text"></div>
-  </label>
-</div>
-
-        
-        
-        
-        </div>
-        
-        
-        
-        
-
-
-         
-         
-         
-         
-         </div>
-         
-         <div id="splitblocks">
-         <input type="checkbox" id="C1" name="Checkbox" value="C1"> <label for="C1"> Show Slipt Blocks </label>
-         </div>
-         
-
-
-        <div class="map-legend" id='elig_area_legend'>
-            <table>
-                <thead>
-                    <tr>
-                        <td colspan="3"><span class="icon icon-list"></span> <span class="map-legend-name"> Coverage Area Legend</span>
-                        </td>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Eligible Area</td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div class="key-symbol" style="background-color:#BDD7E7 "></div>
-                        </td>
-                </tbody>
-            </table>
-        </div>
-        
-        
-        
-        
-                <div class="map-legend" id='elig_locs_legend'>
-            <table>
-                <thead>
-                    <tr>
-                        <td colspan="3"><span class="icon icon-list"></span> <span class="map-legend-name"> Eligible Locations in Block Groups</span>
-                        </td>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>
-                            <div class="key-symbol" style="background-color:#EDF8FB"></div>
-                        </td>
-                        <td>0 - 60</td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div class="key-symbol" style="background-color:#B3CDE3"></div>
-                        </td>
-                        <td>61 - 150</td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div class="key-symbol" style="background-color:#8C96C6"></div>
-                        </td>
-                        <td>151 - 300</td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div class="key-symbol" style="background-color:#8856A7"></div>
-                        </td>
-                        <td>301 - 500</td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div class="key-symbol" style="background-color:#810F7C"></div>
-                        </td>
-                        <td>501 - 1250</td>
-                    </tr>
-            </table>
-        </div>
-        
-
-                   <div class="map-legend" id='elig_support_legend'>
-            <table>
-                <thead>
-                    <tr>
-                        <td colspan="3"><span class="icon icon-list"></span> <span class="map-legend-name"> Annual Support in Block Groups</span>
-
-                        </td>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>
-                            <div class="key-symbol" style="background-color:#EDF8FB"></div>
-                        </td>
-                        <td>0 - $35,000</td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div class="key-symbol" style="background-color:#B2E2E2 "></div>
-                        </td>
-                        <td>$35,001 - $95,000</td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div class="key-symbol" style="background-color:#56B990"></div>
-                        </td>
-                        <td>$95,001 - $185,000</td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div class="key-symbol" style="background-color:#2CA25F"></div>
-                        </td>
-                        <td>$185,001 - $350,000</td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div class="key-symbol" style="background-color:#006D2C"></div>
-                        </td>
-                        <td>$350,001 - $950,000</td>
-                    </tr>
-            </table>
-        </div>     
-        
-        
-                           <div class="map-legend" id='elig_support_tracts_legend'>
-            <table>
-                <thead>
-                    <tr>
-                        <td colspan="3"><span class="icon icon-list"></span> <span class="map-legend-name"> Annual Support in Tracts </span>
-
-                        </td>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>
-                            <div class="key-symbol" style="background-color:#EDF8FB"></div>
-                        </td>
-                        <td>0 - $130,000</td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div class="key-symbol" style="background-color:#B2E2E2 "></div>
-                        </td>
-                        <td>$130,001 - $390,000</td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div class="key-symbol" style="background-color:#56B990"></div>
-                        </td>
-                        <td>$390,000 - $750,000</td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div class="key-symbol" style="background-color:#2CA25F"></div>
-                        </td>
-                        <td>$750,001 - $1,580,000</td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div class="key-symbol" style="background-color:#006D2C"></div>
-                        </td>
-                        <td>$1,580,001 - $4,200,000</td>
-                    </tr>
-            </table>
-        </div>     
-        
-                             <div class="map-legend" id='elig_locations_tracts_legend'>
-            <table>
-                <thead>
-                    <tr>
-                        <td colspan="3"><span class="icon icon-list"></span> <span class="map-legend-name"> Eligible Locations in Tracts</span>
-
-                        </td>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>
-                            <div class="key-symbol" style="background-color:#EDF8FB"></div>
-                        </td>
-                        <td>0 - 200</td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div class="key-symbol" style="background-color:#B3CDE3 "></div>
-                        </td>
-                        <td>201 - 600</td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div class="key-symbol" style="background-color:#8C96C6"></div>
-                        </td>
-                        <td>601 - 1000</td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div class="key-symbol" style="background-color:#8856A7"></div>
-                        </td>
-                        <td>1001 - 2000</td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div class="key-symbol" style="background-color:#810F7C"></div>
-                        </td>
-                        <td>2000 - 2001</td>
-                    </tr>
-            </table>
-        </div>          
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        <div class="map-legend" id='split_blocks_legend_high' style="bottom: 200px">
-            <table>
-                <thead>
-                    <tr>
-                        <td colspan="3"><span class="icon icon-list"></span> <span class="map-legend-name">Split Blocks Legend</span>
-                        </td>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>
-                            <div class="key-symbol-line" style="border: solid 1px #FF0000"></div>
-                        </td>
-                        <td>Rate of Return</td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div class="key-symbol-line" style="border: solid 1px #00FFC5"></div>
-                        </td>
-                        <td>Tribal</td>
-                    </tr>
-                    <tr>
-                    </tr>
-            </table>
-        </div> 
-        
-        
-        
-                <div class="map-legend" id='split_blocks_legend_low' style="bottom: 110px">
-            <table>
-                <thead>
-                    <tr>
-                        <td colspan="3"><span class="icon icon-list"></span> <span class="map-legend-name">Split Blocks Legend</span>
-                        </td>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>
-                            <div class="key-symbol-line" style="border: solid 1px #FF0000"></div>
-                        </td>
-                        <td>Rate of Return</td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div class="key-symbol-line" style="border: solid 1px #00FFC5"></div>
-                        </td>
-                        <td>Tribal</td>
-                    </tr>
-                    <tr>
-                    </tr>
-            </table>
-        </div> 
-        
-       
-        <button id="btn-openLegend" class="btn legend__icon" title="Map Legend"><span class="icon icon-list"></span></button>
-    </main>
+  label {
     
-</body>
+    .can-toggle__label-text { flex: 1; }
+    
+    .can-toggle__switch {
+      transition: background-color 0.3s $can-toggle-transition;
+      background: lighten($can-toggle-off-color, 5%);
+      &:before { color: $can-toggle-inactive-text; }
+      &:after {
+        // Autoprefixer choked here, so making the prefixes explicit
+        -webkit-transition: -webkit-transform 0.3s $can-toggle-transition;
+        transition: transform 0.3s $can-toggle-transition;
+        color: $can-toggle-off-color; 
+      }
+    }
+    
+  }
+}
+
+@mixin can-toggle-appearance 
+( 
+  $can-toggle-width: 134px,
+  $can-toggle-height: 36px,
+  $can-toggle-border-radius: 4px,
+  $can-toggle-offset: 2px,
+  $can-toggle-label-font-size: 14px,
+  $can-toggle-switch-font-size: 12px,
+  $can-toggle-shadow: 0 3px 3px rgba(black, 0.4)
+){
+  $can-toggle-switch-width: $can-toggle-width/2;
   
-</html>
+  input[type="checkbox"] {
+
+    &:focus ~ label, &:hover ~ label {
+      .can-toggle__switch {
+        &:after { box-shadow: $can-toggle-shadow; } 
+      }
+    }
+    
+    &:checked {
+      ~ label {
+        .can-toggle__switch {
+          &:after { transform: translate3d($can-toggle-width - ($can-toggle-switch-width + $can-toggle-offset),0,0); }  
+        }
+      }
+      &:focus, &:hover {
+        ~ label {
+          .can-toggle__switch { &:after { box-shadow: $can-toggle-shadow; } }
+        } 
+      }
+    }
+  }
+  
+  label {
+    font-size: $can-toggle-label-font-size;
+    
+    .can-toggle__switch {
+      height: $can-toggle-height;
+      flex: 0 0 $can-toggle-width;
+      border-radius: $can-toggle-border-radius;
+      
+      &:before {
+        left: $can-toggle-width/2;
+        font-size: $can-toggle-switch-font-size; 
+        line-height: $can-toggle-height;
+        width: $can-toggle-width/2;
+        padding: 0 12px;
+      }
+      
+      &:after {
+        top: $can-toggle-offset; left: $can-toggle-offset;
+        border-radius: $can-toggle-border-radius/2;
+        width: $can-toggle-switch-width - $can-toggle-offset; 
+        line-height: $can-toggle-height - ($can-toggle-offset*2);
+        font-size: $can-toggle-switch-font-size;
+      }
+      
+      &:hover {
+        &:after { box-shadow: $can-toggle-shadow; }
+      }
+    } 
+  }
+}
+
+
+
+.can-toggle {
+  position: relative;
+  *, *:before, *:after { box-sizing: border-box; }
+  //overflow: hidden;
+  
+  input[type="checkbox"] {
+    opacity: 0;
+    position: absolute;
+    top: 0; left: 0;
+    
+    &[disabled] ~ label {
+      pointer-events: none;
+      .can-toggle__switch { opacity: 0.4; }
+    }
+    
+    &:checked {
+      ~ label {
+        
+        .can-toggle__switch {
+        
+          &:before {
+            content: attr(data-unchecked);
+            left: 0;
+          }
+        
+          &:after {
+            content: attr(data-checked);
+          }  
+        }
+      }
+      
+      &:focus, &:hover {
+        ~ label {
+        } 
+      }
+    }
+  }
+  
+  label {
+    user-select: none;
+    position: relative;
+    display: flex;
+    align-items: center;
+    
+    .can-toggle__label-text { 
+      flex: 1;
+      padding-left: 32px;
+    }
+    
+    .can-toggle__switch {
+      position: relative;
+      
+      &:before {
+        content: attr(data-checked);
+        position: absolute;
+        top: 0;
+        text-transform: uppercase;
+        text-align: center;
+      }
+      
+      &:after {
+        content: attr(data-unchecked);
+        position: absolute;
+        z-index: 5;
+        text-transform: uppercase;
+        text-align: center;
+        background: white;
+        transform: translate3d(0,0,0);
+      }
+
+    }
+    
+  }
+  
+  // Default values for .can-toggle class
+  @include can-toggle-branding; 
+  @include can-toggle-appearance; 
+  
+  // Create toggles of different sizes by overriding the can-toggle-appearance mixin defaults
+  &.can-toggle--size-small {
+    @include can-toggle-appearance
+    (
+      230px, // Toggle width
+      28px,  // Toggle height
+      2px,   // Toggle border radius
+      1px,   // Offset (distance btw switch and box)
+      13px,  // Label font size
+      10px,  // Switch font size
+      0 2px 2px rgba(black, 0.4) // Switch shadow on hover/focus
+    ); 
+  }
+  
+  &.can-toggle--size-large {
+    @include can-toggle-appearance
+    (
+      160px, // Toggle width
+      50px,  // Toggle height
+      4px,   // Toggle border radius
+      2px,   // Offset (distance btw switch and box)
+      14px,  // Label font size
+      14px,  // Switch font size
+      0 4px 4px rgba(black, 0.4) // Switch shadow on hover/focus
+    ); 
+  }
+  
+  // Or re-brand the toggle for different applications
+  &.demo-rebrand-1 {
+    @include can-toggle-branding
+    (
+      #b53e74,  // Off state color
+      #3d9c72,  // On state color
+      rgba(white, 0.6),  // Off state text color
+      ease-in-out  // Transition timing function
+    ); 
+  }
+  
+  &.demo-rebrand-2 {
+    @include can-toggle-branding
+    (
+      #444,  // Off state color
+      #69be28,  // On state color
+      rgba(white, 0.7),  // Off state text color
+      cubic-bezier(0.860, 0.000, 0.070, 1.000)  // Transition timing function
+    );
+    @include can-toggle-appearance
+    (
+      120px, // Toggle width
+      60px,  // Toggle height
+      60px,   // Toggle border radius
+      2px,   // Offset (distance btw switch and box)
+      13px,  // Label font size
+      13px,  // Switch font size
+      0 4px 4px rgba(black, 0.4) // Switch shadow on hover/focus
+    ); 
+  }
+  
+}
