@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="https://js.arcgis.com/4.14/esri/themes/light/main.css"/>
     <script src="https://js.arcgis.com/4.14/"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <link rel="stylesheet" type="text/scss" href="css/styles.css">
+    <link rel="stylesheet" href="css/styles.css">
 </head>
     <style>
 
@@ -42,8 +42,8 @@
         background: #D3D3D3;
         color: #444;
         width: auto;
-        left: 71px;
-        top: 153px;
+        left: 380px;
+        top: 105px;
         -moz-box-shadow: 0 0 10px #888;
         -webkit-box-shadow: 0 0 10px #888;
         box-shadow: 0 0 10px #888;
@@ -52,9 +52,7 @@
         border-style: solid;
              } 
              
-             
-             
-             
+              
      #toggle_area {
         border-radius: 10px;
         position: fixed;
@@ -70,14 +68,52 @@
              } 
 
 
+       #slider {
+        position: fixed;
+        height: auto;
+        font-family: arial;
+        padding: 10px;
+        z-index: 40;
+        background: #ffffff;
+        color: #444;
+        width: auto;
+        left: 200px;
+        bottom: 100px;
+        border-color: #212223;
+        border-width: 1px;
+        border-style: solid;
+             } 
+             
+            
+        #warning {
+        position: absolute;
+        height: 45px;
+        font-family: arial;
+        padding: 10px;
+        z-index: 40;
+        background: #ffffff;
+        color: #444;
+        width: auto;
+        top: 50%;
+        left: 50%;
+        border-color: #212223;
+        border-width: 1px;
+        border-style: solid;
+             }        
 
+        #basemap_toggle_region {
+        position: absolute;
+        height: 1px;
+        width: 1px;
+        left: 0px;
+        top: 155px;
+  }  
      
-      
-    </style>
+ </style>
 
     <script>
     
-     
+    
     
       
 require([
@@ -98,21 +134,15 @@ require([
   "esri/PopupTemplate",
   "esri/geometry/Point",
   "esri/layers/TileLayer",
-  "esri/layers/MapImageLayer"
+  "esri/layers/MapImageLayer",
+  "esri/widgets/smartMapping/OpacitySlider",
+  "esri/widgets/BasemapToggle"
 ],
     function (Map, MapView, Basemap, VectorTileLayer, FeatureLayer, WebTileLayer, Search, Home, Locate, Portal,
-               OAuthInfo, esriId, PortalQueryParams, Legend, PopupTemplate, Point, TileLayer, MapImageLayer) {
+               OAuthInfo, esriId, PortalQueryParams, Legend, PopupTemplate, Point, TileLayer, MapImageLayer, OpacitySlider, BasemapToggle) {
       var map, view, searchWidget, homeBtn, locateBtn
       var layers = window.layers
       var featLayers = []
-      
-      
-  var info = new OAuthInfo({
-  appId: "ilUD28Q0NqmDjSX8",
-  popup: false
-});
-
-esriId.registerOAuthInfos([info]);
 
 var dojoConfig = {
     has: {
@@ -120,30 +150,18 @@ var dojoConfig = {
     }
   };
 
-        // Create base layer from Mapbox street layer
-      var mapBaseLayer = new WebTileLayer({
-        urlTemplate: 'https://{subDomain}.tiles.mapbox.com/v4/fcc.map-toolde8w/{level}/{col}/{row}.png?access_token=pk.eyJ1IjoiZmNjIiwiYSI6InBiaGMyLU0ifQ.LOmVYpUCFv2yWpbvxDdQNg',
-        subDomains: ['a', 'b', 'c', 'd'],
-        copyright: '\u00A9 OpenStreetMap contributors Design \u00A9 Mapbox'
-      })
 
-        // Create base map from Mapbox layer
-      var mapBox = new Basemap({
-        baseLayers: [mapBaseLayer],
-        title: 'Street'
-      })
-
-        // Create map
+      // Create map
       map = new Map({
-        basemap: mapBox
+        basemap: "gray-vector"
       })
 
-        // Make map view and bind it to the map
+      // Make map view and bind it to the map
       view = new MapView({
         container: 'map',
         map: map,
-        center: [-121, 38.48],
-        zoom: 5,
+        center: [-83, 38.48],
+        zoom: 4,
         constraints: {
           minZoom: 4,
           maxZoom: 13,
@@ -151,17 +169,24 @@ var dojoConfig = {
         }
       })
 
-        // Add search widget
+
+// Add Basemap Selector Widget
+var basemapToggle = new BasemapToggle({
+  view: view, 
+  nextBasemap: "hybrid",
+  container: basemap_toggle_region 
+});
+
+
+     // Add search widget
       searchWidget = new Search({
         view: view
       })
 
         // Position search widget
       view.ui.add(searchWidget, {
-        position: 'top-right',
-        index: 2
+        position: 'top-right'
       })
-
         // Add Home widget
       homeBtn = new Home({
         view: view
@@ -180,22 +205,66 @@ var dojoConfig = {
         position: 'top-left'
       })
 
-//       var template = {
-//         title: 'Block Group: {BlockGroup}',
-//         content: '<ul style="margin-top: 0"><li>Locations = {EligLocs}</li><li>Reserve = {AnnSup}</li><ul>'
-//       }
+
+  // Position basemap seletor widget
+      view.ui.add(basemapToggle, {
+        position: 'top-left'
+      })
       
       
+     
+   //  Click Event for Blocks Message 
+       view.on("click", function(){
+       console.log(view.scale);
+       console.log(BlocksFeatureLayer.visible)
+       if (view.scale > 1155581.108577 && area_toggle.checked == true){        
+       $("#warning").fadeIn("fast");
+       };    
+     });
+
+
+      // Opacity Slider Stuff 
+       var slider = document.getElementById("sliderobject");
+       slider.oninput = function() {
+       var adj_val = 1 - this.value
+       area_no_border.opacity = adj_val;           
+       elig_locs_no_border.opacity = adj_val;
+       elig_support_no_border.opacity = adj_val;
+       elig_locs_no_border_tracts.opacity = adj_val;
+       elig_support_no_border_tracts.opacity = adj_val;
+       cbg_boundary_lines.opacity = adj_val;;
+       tract_boundary_lines.opacity = adj_val;;
+       split_blocks.opacity = adj_val; 
+          }
           
+          
+      // Zoom In to Block Groups 
+      var ZoomInButton = document.getElementById("ZoomIn");
+      ZoomInButton.addEventListener("click", function(){
+      $("#warning").fadeOut("fast");
+       view.scale = 1155581;
+       view.center = view.center;
+       });
+          
+      // Mousewheel Check to Hide the Block Group Message if user zooms in enough    
+      document.getElementById("map").addEventListener("wheel", scalecheck);
+       function scalecheck() {
+         if (view.scale <= 2311162.217155){        
+         $("#warning").fadeOut("fast");
+         };
+       };     
+          
+          
+          
+          
+        
+          
+      // Set all of the popup templates
       
           var cbg_locs_template = {
-          // autocasts as new PopupTemplate()
           title: "Block Group: {BlockGroup}",
           content: [
             {
-              // It is also possible to set the fieldInfos outside of the content
-              // directly in the popupTemplate. If no fieldInfos is specifically set
-              // in the content, it defaults to whatever may be set within the popupTemplate.
               type: "fields",
               fieldInfos: [
                 {
@@ -208,13 +277,9 @@ var dojoConfig = {
         };
       
          var cbg_support_template = {
-          // autocasts as new PopupTemplate()
           title: "Block Group: {BlockGroup}",
           content: [
             {
-              // It is also possible to set the fieldInfos outside of the content
-              // directly in the popupTemplate. If no fieldInfos is specifically set
-              // in the content, it defaults to whatever may be set within the popupTemplate.
               type: "fields",
               fieldInfos: [
                 {
@@ -226,17 +291,10 @@ var dojoConfig = {
           ]
         };
       
-          
-      
-      
-          var tracts_locs_template = {
-          // autocasts as new PopupTemplate()
+       var tracts_locs_template = {
           title: "Tract: {Final_Elig}",
           content: [
             {
-              // It is also possible to set the fieldInfos outside of the content
-              // directly in the popupTemplate. If no fieldInfos is specifically set
-              // in the content, it defaults to whatever may be set within the popupTemplate.
               type: "fields",
               fieldInfos: [
                 {
@@ -250,13 +308,9 @@ var dojoConfig = {
       
       
          var tracts_support_template = {
-          // autocasts as new PopupTemplate()
           title: "Tract: {Final_Elig}",
           content: [
             {
-              // It is also possible to set the fieldInfos outside of the content
-              // directly in the popupTemplate. If no fieldInfos is specifically set
-              // in the content, it defaults to whatever may be set within the popupTemplate.
               type: "fields",
               fieldInfos: [
                 {
@@ -270,13 +324,10 @@ var dojoConfig = {
       
       
           var tracts_area_template = {
-          // autocasts as new PopupTemplate()
           title: "Tract: {Final_Elig}",
           content: [
             {
-              // It is also possible to set the fieldInfos outside of the content
-              // directly in the popupTemplate. If no fieldInfos is specifically set
-              // in the content, it defaults to whatever may be set within the popupTemplate.
+
               type: "fields",
               fieldInfos: [
                 {
@@ -314,8 +365,10 @@ var dojoConfig = {
       
       
       
+   // Hide Windows on load   
     $("#elig_support_legend").hide();
     $("#elig_locs_legend").hide();
+    $("#warning").hide();
     
     $("#elig_support_tracts_legend").hide();
     $("#elig_locations_tracts_legend").hide();
@@ -324,7 +377,7 @@ var dojoConfig = {
     $("#split_blocks_legend_high").hide();
 
 
-  //   Create vector tile layers
+  //   Create vector tile layers and feature layers for data
       var area_no_border = new VectorTileLayer({
       url: 'https://tiles.arcgis.com/tiles/YnOQrIGdN9JGtBh4/arcgis/rest/services/RuDOF_Eligible_CBGs/VectorTileServer'})
 
@@ -362,51 +415,31 @@ var dojoConfig = {
 
       var BlocksFeatureLayer = new FeatureLayer({
       url: "https://services.arcgis.com/YnOQrIGdN9JGtBh4/arcgis/rest/services/Final_Eligible_Blocks_CBG_Dissolve/FeatureServer",
-      visible: false});
+      visible: false
+      });
+      BlocksFeatureLayer.minScale = 2199999;         
               
       var TractFeatureLayer = new FeatureLayer({url:  "https://services.arcgis.com/YnOQrIGdN9JGtBh4/arcgis/rest/services/Final_Eligible_Tracts/FeatureServer"
       });
         
-        
-        
-
-      
-
-
-
-
-     
-
-
- view.on("click", function(event){
-      var query = BlocksFeatureLayer.createQuery();
-        query.returnGeometry = true;
-        query.outFields = ["*"];
-        query.geometry = event.mapPoint;
-        BlocksFeatureLayer.queryFeatures(query).then(function (resp) {
-        console.log('You clicked');
-        });
-});
-
+          
 
       // Add tile layers to map
       
-       map.add(area_no_border)            
-       map.add(elig_locs_no_border)
-       map.add(elig_support_no_border)
-       map.add(elig_locs_no_border_tracts)
-       map.add(elig_support_no_border_tracts)
+       map.add(area_no_border);           
+       map.add(elig_locs_no_border);
+       map.add(elig_support_no_border);
+       map.add(elig_locs_no_border_tracts);
+       map.add(elig_support_no_border_tracts);
        
        map.add(cbg_boundary_lines);
        map.add(tract_boundary_lines);
        
        map.add(BlocksFeatureLayer);
        map.add(TractFeatureLayer);
-
-
-    
-    
-       map.add(split_blocks) 
+       
+       map.add(split_blocks)  
+      
       
 
      var area_toggle = document.getElementById("b"); 
@@ -414,8 +447,8 @@ var dojoConfig = {
      document.getElementById("elig_area_legend").style.visibility = 'visible';
       
    // Set Default (Area) FeatureLayer Popup Templates 
-   BlocksFeatureLayer.popupTemplate = cbg_area_template;
-   TractFeatureLayer.popupTemplate = tracts_area_template
+     BlocksFeatureLayer.popupTemplate = cbg_area_template;
+     TractFeatureLayer.popupTemplate = tracts_area_template
       
       
    // Create event listener and button actions for eligible area layer and legend
@@ -458,7 +491,7 @@ var dojoConfig = {
   });
       
 
-    // Create event listener and button actionws for eligible locations layer and legend
+    // Create event listener and button actions for eligible locations layer and legend
       var elig_locs_toggle = document.getElementById("B2");
       document.getElementById("elig_locs_legend").style.visibility = 'visible';
       elig_locs_toggle.addEventListener("change", function() {
@@ -498,7 +531,7 @@ var dojoConfig = {
       };
   });
 
-       // Create event listener and button actionws for eligible suport layer and legend
+       // Create event listener and button actions for eligible suport layer and legend
       var elig_support_toggle = document.getElementById("B3");
       document.getElementById("elig_support_legend").style.visibility = 'visible';
       elig_support_toggle.addEventListener("change", function() {
@@ -540,9 +573,8 @@ var dojoConfig = {
       }; 
   });
       
-      
-      
-      // Create event listener and button actionws for spit blocks and legend
+    
+    // Create event listener and button actions for spit blocks and legend
       var split_blocks_toggle = document.getElementById("C1");
       split_blocks_toggle.addEventListener("change", function() {
       split_blocks.visible = split_blocks_toggle.checked;
@@ -563,7 +595,7 @@ var dojoConfig = {
       
 
 
-      // Create event listener and button actions for block groups/tracts toggle
+    // Create event listener and button actions for block groups/tracts toggle
       var area_toggle = document.getElementById("b");
       area_toggle.addEventListener("change", function() {
       view.popup.close()
@@ -573,8 +605,6 @@ var dojoConfig = {
       cbg_boundary_lines.visible = true;
       TractFeatureLayer.visible = false;
       tract_boundary_lines.visible = false;
-      view.constraints = {minScale: 2199999};
-      view.zoom = 5;
       } else if (area_toggle.checked == false){
       console.log('You are viewing Tracts.');
       BlocksFeatureLayer.visible = false;
@@ -582,8 +612,13 @@ var dojoConfig = {
       tract_boundary_lines.visible = true;
       cbg_boundary_lines.visible = false;
       map.add(tract_boundary_lines);
-      view.constraints = {minScale: 19199999};
       };
+      
+      if (area_toggle.checked == true && view.zoom < 8){
+      $("#warning").fadeIn("fast");
+      };
+      
+      
       
       if (area_toggle.checked == true && elig_locs_toggle.checked == true){
       console.log('You are viewing the eligible locations in block groups')
@@ -643,8 +678,7 @@ var dojoConfig = {
       $("#elig_support_tracts_legend").fadeOut("fast");
       };
       
-      
-      
+
       
   });
 
@@ -687,19 +721,32 @@ var dojoConfig = {
         
         
         
-        
+<div class="frame">
+  <div class="range">
+    <input type="range" min="0" max="1" value = "0.01", step = ".01" id = "sliderobject">
+  </div>
+</div>
+
+<div id="warning">
+<p style="color:black;font-size:14px;">You must <input type="button" id="ZoomIn" value="Zoom In"> <label for="ZoomIn"></label> to view Block Groups</p>
+  </div>
 
 
-         
+
          
          
          
          </div>
          
          <div id="splitblocks">
-         <input type="checkbox" id="C1" name="Checkbox" value="C1"> <label for="C1"> Show Slipt Blocks </label>
+         <input type="checkbox" id="C1" name="Checkbox" value="C1"> <label for="C1">Slipt Blocks</label>
          </div>
          
+         <div  id="basemap_toggle_region">
+         </div>
+         
+ 
+        
 
 
         <div class="map-legend" id='elig_area_legend'>
@@ -967,8 +1014,9 @@ var dojoConfig = {
                     </tr>
             </table>
         </div> 
-        
-       
+
+  
+  
         <button id="btn-openLegend" class="btn legend__icon" title="Map Legend"><span class="icon icon-list"></span></button>
     </main>
     
