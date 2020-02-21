@@ -138,15 +138,6 @@ require([
       var layers = window.layers
       var featLayers = []
 
-var info = new OAuthInfo({
-  appId: "ilUD28Q0NqmDjSX8",
-  popup: false
-});
-
-esriId.registerOAuthInfos([info]);   
-      
-      
-      
 var dojoConfig = {
     has: {
       "esri-featurelayer-webgl": 1
@@ -215,7 +206,7 @@ var basemapToggle = new BasemapToggle({
       })
       
       
-     
+
    //  Click Event for Blocks Message 
        view.on("click", function(){
        console.log(view.scale);
@@ -225,21 +216,6 @@ var basemapToggle = new BasemapToggle({
        };    
      });
 
-
-      // Opacity Slider Stuff 
-       var slider = document.getElementById("sliderobject");
-       slider.oninput = function() {
-       var adj_val = 1 - this.value
-       area_no_border.opacity = adj_val;           
-       elig_locs_no_border.opacity = adj_val;
-       elig_support_no_border.opacity = adj_val;
-       elig_locs_no_border_tracts.opacity = adj_val;
-       elig_support_no_border_tracts.opacity = adj_val;
-       cbg_boundary_lines.opacity = adj_val;;
-       tract_boundary_lines.opacity = adj_val;;
-       split_blocks.opacity = adj_val; 
-          }
-          
           
       // Zoom In to Block Groups 
       var ZoomInButton = document.getElementById("ZoomIn");
@@ -415,7 +391,7 @@ var basemapToggle = new BasemapToggle({
 
   //   Create vector tile layers and feature layers for data
       var area_no_border = new VectorTileLayer({
-      url: 'https://tiles.arcgis.com/tiles/YnOQrIGdN9JGtBh4/arcgis/rest/services/RuDOF_Eligible_CBGs/VectorTileServer'})
+      url: 'https://tiles.arcgis.com/tiles/YnOQrIGdN9JGtBh4/arcgis/rest/services/RuDOF_Eligible_CBGs/VectorTileServer'}) 
 
       var elig_locs_no_border = new VectorTileLayer({
       url: 'https://tiles.arcgis.com/tiles/YnOQrIGdN9JGtBh4/arcgis/rest/services/EligibleCBGLocations/VectorTileServer',
@@ -476,7 +452,28 @@ var basemapToggle = new BasemapToggle({
        
        map.add(split_blocks)  
       
+
+       // Set Active Layer to Eligible Area on Map load 
+       var active_layer = area_no_border;
+
+
+        // Opacity Slider Stuff 
+       var slider =  document.getElementById("sliderobject")
+
       
+          
+       slider.oninput = function() {
+       window.adj_val = 1 - this.value
+       active_layer.opacity = window.adj_val;
+       tract_boundary_lines.opacity = window.adj_val;
+       cbg_boundary_lines.opacity = window.adj_val;
+      }  ;  
+          
+
+
+
+
+
 
      var area_toggle = document.getElementById("b"); 
       
@@ -486,15 +483,17 @@ var basemapToggle = new BasemapToggle({
      BlocksFeatureLayer.popupTemplate = cbg_area_template;
      TractFeatureLayer.popupTemplate = tracts_area_template
       
+
       
    // Create event listener and button actions for eligible area layer and legend
       var elig_area_toggle = document.getElementById("B1");
       elig_area_toggle.checked = true;
-
       elig_area_toggle.addEventListener("change", function() {
       document.getElementById("elig_area_legend").style.visibility = 'visible';
       console.log('You are viewing eligible areas.')
       if (area_toggle.checked == true) {
+      active_layer = area_no_border;
+      area_no_border.opacity = window.adj_val;
       BlocksFeatureLayer.popupTemplate = cbg_area_template;
       elig_locs_no_border_tracts.visible = false;
       elig_support_no_border_tracts.visible = false;
@@ -507,6 +506,8 @@ var basemapToggle = new BasemapToggle({
       $("#elig_locations_tracts_legend").fadeOut("fast");
       $("#elig_support_tracts_legend").fadeOut("fast");
       } else if (area_toggle.checked == false){
+      active_layer = area_no_border;
+      area_no_border.opacity = window.adj_val;
       TractFeatureLayer.popupTemplate = tracts_area_template;
       elig_locs_no_border_tracts.visible = false;
       elig_support_no_border_tracts.visible = false;
@@ -532,6 +533,8 @@ var basemapToggle = new BasemapToggle({
       document.getElementById("elig_locs_legend").style.visibility = 'visible';
       elig_locs_toggle.addEventListener("change", function() {
       if (area_toggle.checked == true) {
+      active_layer = elig_locs_no_border;
+      elig_locs_no_border.opacity = window.adj_val;
       console.log('You are viewing eligible locations in block groups.')
       BlocksFeatureLayer.popupTemplate = cbg_locs_template;
       elig_locs_no_border.visible = true;
@@ -545,6 +548,8 @@ var basemapToggle = new BasemapToggle({
       } 
       
       else if (area_toggle.checked == false){
+      active_layer = elig_locs_no_border_tracts;
+      elig_locs_no_border_tracts.opacity = window.adj_val;
       TractFeatureLayer.popupTemplate = tracts_locs_template;
       console.log('You are viewing eligible locations in tracts.')
       elig_locs_no_border_tracts.visible = true;
@@ -572,6 +577,8 @@ var basemapToggle = new BasemapToggle({
       document.getElementById("elig_support_legend").style.visibility = 'visible';
       elig_support_toggle.addEventListener("change", function() {
       if (area_toggle.checked == true) {
+      active_layer = elig_support_no_border;
+      elig_support_no_border.opacity = window.adj_val;
       BlocksFeatureLayer.popupTemplate = cbg_support_template;
       console.log('You are viewing eligible support in block groups.')
       elig_support_no_border.visible = true;
@@ -587,6 +594,8 @@ var basemapToggle = new BasemapToggle({
       } 
       
       else if (area_toggle.checked == false){
+      active_layer = elig_support_no_border_tracts;
+      elig_support_no_border_tracts.opacity = window.adj_val;
       TractFeatureLayer.popupTemplate = tracts_support_template;
       console.log('You are viewing eligible support in tracts.')
       elig_support_no_border_tracts.visible = true;
@@ -642,6 +651,7 @@ var basemapToggle = new BasemapToggle({
       TractFeatureLayer.visible = false;
       tract_boundary_lines.visible = false;
       } else if (area_toggle.checked == false){
+      $("#warning").fadeOut("fast");
       console.log('You are viewing Tracts.');
       BlocksFeatureLayer.visible = false;
       TractFeatureLayer.visible = true;
@@ -657,6 +667,8 @@ var basemapToggle = new BasemapToggle({
       
       
       if (area_toggle.checked == true && elig_locs_toggle.checked == true){
+      active_layer = elig_locs_no_border;
+      elig_locs_no_border.opacity = window.adj_val;
       console.log('You are viewing the eligible locations in block groups')
       BlocksFeatureLayer.popupTemplate = cbg_locs_template;
       elig_locs_no_border.visible = true;
@@ -666,6 +678,8 @@ var basemapToggle = new BasemapToggle({
       $("#elig_locations_tracts_legend").fadeOut("fast");
       $("#elig_support_tracts_legend").fadeOut("fast");
       } else if (area_toggle.checked == false && elig_locs_toggle.checked == true){
+      elig_locs_no_border_tracts.opacity = window.adj_val;
+      active_layer = elig_locs_no_border_tracts;
       TractFeatureLayer.popupTemplate = tracts_locs_template;
       elig_locs_no_border.visible = false;
       elig_locs_no_border_tracts.visible = true;
@@ -677,6 +691,8 @@ var basemapToggle = new BasemapToggle({
       };
   
       if (area_toggle.checked == true && elig_support_toggle.checked == true){
+      active_layer = elig_support_no_border;
+      elig_support_no_border.opacity = window.adj_val;
       BlocksFeatureLayer.popupTemplate = cbg_support_template;
       elig_support_no_border.visible = true;
       elig_support_no_border_tracts.visible = false;
@@ -686,6 +702,8 @@ var basemapToggle = new BasemapToggle({
       $("#elig_locations_tracts_legend").fadeOut("fast");
       $("#elig_support_tracts_legend").fadeOut("fast");
       } else if (area_toggle.checked == false && elig_support_toggle.checked == true){
+      active_layer = elig_support_no_border_tracts;
+      elig_support_no_border_tracts.opacity = window.adj_val;
       TractFeatureLayer.popupTemplate = tracts_support_template;
       elig_support_no_border.visible = false;
       elig_support_no_border_tracts.visible = true;     
@@ -697,6 +715,8 @@ var basemapToggle = new BasemapToggle({
       };
       
       if (area_toggle.checked == true && elig_area_toggle.checked == true){
+      active_layer = area_no_border;
+      area_no_border.opacity = window.adj_val;
       BlocksFeatureLayer.popupTemplate = cbg_area_template;
       console.log('You are viewing the eligible areas')
       $("#elig_area_legend").fadeIn("fast");
@@ -705,6 +725,8 @@ var basemapToggle = new BasemapToggle({
       $("#elig_locations_tracts_legend").fadeOut("fast");
       $("#elig_support_tracts_legend").fadeOut("fast");
       } else if (area_toggle.checked == false && elig_area_toggle.checked == true){
+      active_layer = area_no_border;
+      area_no_border.opacity = window.adj_val;
       TractFeatureLayer.popupTemplate = tracts_area_template
       console.log('You are viewing the eligible locations in tracts')
       $("#elig_area_legend").fadeIn("fast");
@@ -717,6 +739,18 @@ var basemapToggle = new BasemapToggle({
 
       
   });
+
+
+
+ 
+      
+
+
+
+
+
+
+
 
 
 
@@ -759,7 +793,7 @@ var basemapToggle = new BasemapToggle({
         
 <div class="frame">
 	<div class="range">
-		<input type="range" min="0" max="1" value = "0.01", step = ".01" id = "sliderobject">
+		<input type="range" min="0" max="1" value = "0.01", step = ".01" id = "sliderobject" >
 	</div>
 </div>
 
