@@ -130,24 +130,15 @@ require([
   "esri/layers/TileLayer",
   "esri/layers/MapImageLayer",
   "esri/widgets/smartMapping/OpacitySlider",
-  "esri/widgets/BasemapToggle"
+  "esri/widgets/BasemapToggle",
+  "esri/core/Collection"
 ],
     function (Map, MapView, Basemap, VectorTileLayer, FeatureLayer, WebTileLayer, Search, Home, Locate, Portal,
-               OAuthInfo, esriId, PortalQueryParams, Legend, PopupTemplate, Point, TileLayer, MapImageLayer, OpacitySlider, BasemapToggle) {
+               OAuthInfo, esriId, PortalQueryParams, Legend, PopupTemplate, Point, TileLayer, MapImageLayer, OpacitySlider, BasemapToggle, Collection) {
       var map, view, searchWidget, homeBtn, locateBtn
       var layers = window.layers
       var featLayers = []
 
-      
- var info = new OAuthInfo({
-  appId: "ilUD28Q0NqmDjSX8",
-  popup: false
-});
-
-esriId.registerOAuthInfos([info]);     
-      
-      
-      
 var dojoConfig = {
     has: {
       "esri-featurelayer-webgl": 1
@@ -165,9 +156,9 @@ var dojoConfig = {
         container: 'map',
         map: map,
         center: [-97, 39],
-        zoom: 4,
+        zoom: 5,
         constraints: {
-          minZoom: 4,
+          minZoom: 5,
           maxZoom: 13,
           rotationEnabled: false
         }
@@ -415,7 +406,7 @@ var basemapToggle = new BasemapToggle({
       url: 'https://tiles.arcgis.com/tiles/YnOQrIGdN9JGtBh4/arcgis/rest/services/RuDOF_Eligible_CGB_Boundary_Lines/VectorTileServer',
       visible: false
       })
-     cbg_boundary_lines.minScale = 2199999;       
+      cbg_boundary_lines.minScale = 2199999;       
             
       var elig_locs_no_border_tracts = new VectorTileLayer({
       url: 'https://tiles.arcgis.com/tiles/YnOQrIGdN9JGtBh4/arcgis/rest/services/EligibleTractLocations/VectorTileServer',
@@ -470,12 +461,18 @@ var basemapToggle = new BasemapToggle({
         // Opacity Slider Stuff 
        var slider =  document.getElementById("sliderobject")
 
+
+       var collection = new Collection();
+       collection.addMany([active_layer,cbg_boundary_lines, tract_boundary_lines]);
+       
+       
+       active_layer.opacity = window.adj_val;
       
           
        slider.oninput = function() {
        window.adj_val = 1 - this.value
-       active_layer.opacity = window.adj_val;
-       }  ;  
+       active_layer.opacity = window.adj_val; 
+ };  
           
 
 
