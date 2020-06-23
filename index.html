@@ -527,7 +527,7 @@ var dojoConfig = {
  
       // Block Borders 
       var Block_Borders = new VectorTileLayer({
-      url: 'https://tiles.arcgis.com/tiles/YnOQrIGdN9JGtBh4/arcgis/rest/services/cbg_border_2/VectorTileServer'}) 
+      url: 'https://tiles.arcgis.com/tiles/YnOQrIGdN9JGtBh4/arcgis/rest/services/EligibleBlockGroupBorders_VTL/VectorTileServer'}) 
       Block_Borders.minScale = minScaleBorder;
       Block_Borders.visible = false;
   
@@ -630,8 +630,7 @@ var dojoConfig = {
 
       // Add tile layers to map
 
-         map.add(Locations_Blocks_No_Border); 
-         map.add(Locations_Blocks_With_Border);
+
   
          map.add(Locations_No_Border_Tracts);
   
@@ -1829,7 +1828,7 @@ $(function(){
                         <td>
                             <div class="key-symbol" style="background-color:#7A0177"></div>
                         </td>
-                        <td>$1,000,001 - $2,200,001</td>
+                        <td>$1,000,001 - $2,200,000</td>
                     </tr>
             </table>
         </div>     
