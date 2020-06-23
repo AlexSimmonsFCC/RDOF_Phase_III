@@ -527,9 +527,9 @@ var dojoConfig = {
  
       // Block Borders 
       var Block_Borders = new VectorTileLayer({
-      url: 'https://tiles.arcgis.com/tiles/YnOQrIGdN9JGtBh4/arcgis/rest/services/EligibleBlockGroupBorders_VTL/VectorTileServer'}) 
+      url: 'https://tiles.arcgis.com/tiles/YnOQrIGdN9JGtBh4/arcgis/rest/services/BG_Borders_VLT/VectorTileServer'}) 
       Block_Borders.minScale = minScaleBorder;
-      Block_Borders.visible = false;
+  
   
 
   //   Create vector tile layers and feature layers for data
@@ -645,8 +645,7 @@ var dojoConfig = {
          map.add(BlocksFeatureLayer);
          
          map.add(Block_Borders);
-         map.add(Block_Borders_For_Locations);
-         map.add(Block_Borders_For_Support);
+
   
   
   
@@ -829,7 +828,7 @@ var dojoConfig = {
       }  */
       
        if (/* area_toggle.checked == true &&  */window.legends_hidden == 2) {
-      Block_Borders.visible = false; 
+ 
       Block_Borders_For_Support.visible = false;
                                                           Locations_Blocks_No_Border
           .when(function() {                                            
@@ -925,7 +924,7 @@ var dojoConfig = {
           .when(function() {
             Block_Borders_For_Support.visible = true;
           })
-      Block_Borders.visible = false;  
+  
       Block_Borders_For_Locations.visible = false; 
       $("#show_legend_button").fadeIn(200);
       BlocksFeatureLayer.popupTemplate = cbg_area_template;
@@ -951,7 +950,7 @@ var dojoConfig = {
           .when(function() {
             Block_Borders_For_Support.visible = true;
           })
-      Block_Borders.visible = false;
+ 
       Block_Borders_For_Locations.visible = false;
       $("#show_legend_button").fadeOut(200);
       BlocksFeatureLayer.popupTemplate = cbg_support_template;
