@@ -527,7 +527,7 @@ var dojoConfig = {
  
       // Block Borders 
       var Block_Borders = new VectorTileLayer({
-      url: 'https://tiles.arcgis.com/tiles/YnOQrIGdN9JGtBh4/arcgis/rest/services/BG_Borders_VLT/VectorTileServer'}) 
+      url: 'https://tiles.arcgis.com/tiles/YnOQrIGdN9JGtBh4/arcgis/rest/services/RDOF_Phase_II_CBG_Border/VectorTileServer'}) 
       Block_Borders.minScale = minScaleBorder;
   
   
@@ -544,7 +544,7 @@ var dojoConfig = {
     
   
       var Coverage_Area_Tracts_No_Border = new VectorTileLayer({
-      url: 'https://tiles.arcgis.com/tiles/YnOQrIGdN9JGtBh4/arcgis/rest/services/RDOF_Phase_II_Coverage_Area/VectorTileServer'}) 
+      url: 'https://tiles.arcgis.com/tiles/YnOQrIGdN9JGtBh4/arcgis/rest/services/RDOF_Phase_II_CBG_CoverageArea/VectorTileServer'}) 
       //Coverage_Area_Tracts_No_Border.maxScale = maxScale;
 
 
@@ -554,13 +554,13 @@ var dojoConfig = {
     //  Locations_Blocks_No_Border.maxScale = maxScale;
       
       var Reserve_Blocks_No_Border = new VectorTileLayer({
-      url: 'https://tiles.arcgis.com/tiles/YnOQrIGdN9JGtBh4/arcgis/rest/services/RDOF_Phase_II_Reserve/VectorTileServer',
+      url: 'https://tiles.arcgis.com/tiles/YnOQrIGdN9JGtBh4/arcgis/rest/services/RDOF_Phase_II_CBG_Reserve/VectorTileServer',
       visible: false}) 
     //  Reserve_Blocks_No_Border.maxScale = maxScale;
        
             
       var Locations_No_Border_Tracts = new VectorTileLayer({
-      url: 'https://tiles.arcgis.com/tiles/YnOQrIGdN9JGtBh4/arcgis/rest/services/RDOF_Phase_II_Locations/VectorTileServer',
+      url: 'https://tiles.arcgis.com/tiles/YnOQrIGdN9JGtBh4/arcgis/rest/services/RDOF_Phase_II_CBG_Locations/VectorTileServer',
       visible: false})
     //  Locations_No_Border_Tracts.maxScale = maxScale;
       
@@ -571,12 +571,12 @@ var dojoConfig = {
 
 
       var split_blocks = new VectorTileLayer({
-      url: 'https://tiles.arcgis.com/tiles/YnOQrIGdN9JGtBh4/arcgis/rest/services/SplitBlockGroups/VectorTileServer',
+      url: 'https://tiles.arcgis.com/tiles/YnOQrIGdN9JGtBh4/arcgis/rest/services/PartiallyEligibleBlocks/VectorTileServer',
       visible: false})
       
 
       var BlocksFeatureLayer = new FeatureLayer({
-      url: "https://services.arcgis.com/YnOQrIGdN9JGtBh4/arcgis/rest/services/RDOF_Phase_II_BlockGroups_FL/FeatureServer",
+      url: "https://services.arcgis.com/YnOQrIGdN9JGtBh4/arcgis/rest/services/FinalEligibleBlockGroups/FeatureServer",
       visible: true
       });
      // BlocksFeatureLayer.minScale = 2199999;         
@@ -600,7 +600,7 @@ var dojoConfig = {
       Locations_Blocks_With_Border.minScale = minScale;
       
       var Reserve_Blocks_With_Border = new VectorTileLayer({
-      url: 'https://tiles.arcgis.com/tiles/YnOQrIGdN9JGtBh4/arcgis/rest/services/RDOF_Phase_II_Reserve/VectorTileServer',
+      url: 'https://tiles.arcgis.com/tiles/YnOQrIGdN9JGtBh4/arcgis/rest/services/RDOF_Phase_II_CBG_Reserve/VectorTileServer',
       visible: true})
       Reserve_Blocks_With_Border.minScale = minScale;
        
@@ -1690,7 +1690,7 @@ $(function(){
                     </tr>
                     <tr>
                         <td>
-                            <div class="key-symbol" style="background-color:#A80000"></div>
+                            <div class="key-symbol" style="background-color:#002673"></div>
                         </td>
                 </tbody>
             </table>
