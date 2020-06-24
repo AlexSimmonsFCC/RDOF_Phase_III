@@ -570,9 +570,7 @@ var dojoConfig = {
    //   Reserve_Tracts_No_Border.maxScale = maxScale;
 
 
-      var split_blocks = new VectorTileLayer({
-      url: 'https://tiles.arcgis.com/tiles/YnOQrIGdN9JGtBh4/arcgis/rest/services/PartiallyEligibleBlocks/VectorTileServer',
-      visible: false})
+    
       
 
       var BlocksFeatureLayer = new FeatureLayer({
@@ -625,28 +623,27 @@ var dojoConfig = {
       Block_Borders_For_Support.minScale = minScaleBorder;
       Block_Borders_For_Support.visible = true;
   
-  
+    var split_blocks = new VectorTileLayer({
+      url: 'https://tiles.arcgis.com/tiles/YnOQrIGdN9JGtBh4/arcgis/rest/services/PartiallyEligibleBlocks/VectorTileServer',
+      visible: false})
   
 
       // Add tile layers to map
 
 
-  
+   
          map.add(Locations_No_Border_Tracts);
   
          map.add(Reserve_Blocks_No_Border); 
          map.add(Reserve_Blocks_With_Border);
   
-  
          map.add(Coverage_Area_Tracts_No_Border);
-  
-         map.add(split_blocks)  
       
          map.add(BlocksFeatureLayer);
          
          map.add(Block_Borders);
 
-  
+         map.add(split_blocks) 
   
   
     
