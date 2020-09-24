@@ -337,7 +337,7 @@ var dojoConfig = {
               type: "fields",
               fieldInfos: [
                 {
-                  fieldName: "locations_l",
+                  fieldName: "locations",
                   label: "Locations:",
                     format: {
                     digitSeparator: true,
@@ -345,7 +345,7 @@ var dojoConfig = {
                     }
                 },
                   {
-                  fieldName: "reserve_pr",
+                  fieldName: "reserve",
                   label: "Annual Reserve Price ($):",
                     format: {
                     digitSeparator: true,
@@ -365,7 +365,7 @@ var dojoConfig = {
               type: "fields",
               fieldInfos: [
                 {
-                  fieldName: "eligible_l",
+                  fieldName: "locations",
                   label: "Locations:",
                     format: {
                     digitSeparator: true,
@@ -373,7 +373,7 @@ var dojoConfig = {
                     }
                 },
                   {
-                  fieldName: "reserve_pr",
+                  fieldName: "reserve",
                   label: "Annual Reserve Price ($):",
                     format: {
                     digitSeparator: true,
@@ -386,7 +386,7 @@ var dojoConfig = {
         };
       
        var tracts_locs_template = {
-          title: "Tract: {geoid}",
+          title: "Tract: {cbg_id}",
           content: [
             {
 
@@ -415,14 +415,14 @@ var dojoConfig = {
       
       
          var tracts_support_template = {
-          title: "Tract: {geoid}",
+          title: "Tract: {cbg_id}",
           content: [
             {
 
               type: "fields",
               fieldInfos: [
                 {
-                  fieldName: "eligible_l",
+                  fieldName: "locations",
                   label: "Locations:",
                     format: {
                     digitSeparator: true,
@@ -430,7 +430,7 @@ var dojoConfig = {
                     }
                 },
                  {
-                  fieldName: "reserve_pr",
+                  fieldName: "reserve",
                   label: "Annual Reserve Price ($):",
                     format: {
                     digitSeparator: true,
@@ -444,7 +444,7 @@ var dojoConfig = {
       
       
           var tracts_area_template = {
-          title: "Tract: {geoid}",
+          title: "Tract: {cbg_id}",
           content: [
             {
 
