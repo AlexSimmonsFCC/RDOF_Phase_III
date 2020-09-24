@@ -527,7 +527,7 @@ var dojoConfig = {
  
       // Block Borders 
       var Block_Borders = new VectorTileLayer({
-      url: 'https://tiles.arcgis.com/tiles/YnOQrIGdN9JGtBh4/arcgis/rest/services/RDOF_Phase_II_CBG_Border/VectorTileServer'}) 
+      url: 'https://tiles.arcgis.com/tiles/YnOQrIGdN9JGtBh4/arcgis/rest/services/RDOF_Phase_III_CBG_Borders/VectorTileServer'}) 
       Block_Borders.minScale = minScaleBorder;
   
   
@@ -544,7 +544,7 @@ var dojoConfig = {
     
   
       var Coverage_Area_Tracts_No_Border = new VectorTileLayer({
-      url: 'https://tiles.arcgis.com/tiles/YnOQrIGdN9JGtBh4/arcgis/rest/services/RDOF_Phase_II_CBG_CoverageArea/VectorTileServer'}) 
+      url: 'https://tiles.arcgis.com/tiles/YnOQrIGdN9JGtBh4/arcgis/rest/services/RDOF_Phase_III_CBG_Coverage_Area/VectorTileServer'}) 
       //Coverage_Area_Tracts_No_Border.maxScale = maxScale;
 
 
@@ -554,13 +554,13 @@ var dojoConfig = {
     //  Locations_Blocks_No_Border.maxScale = maxScale;
       
       var Reserve_Blocks_No_Border = new VectorTileLayer({
-      url: 'https://tiles.arcgis.com/tiles/YnOQrIGdN9JGtBh4/arcgis/rest/services/RDOF_PhaseII_CBG_Reserve/VectorTileServer',
+      url: 'https://tiles.arcgis.com/tiles/YnOQrIGdN9JGtBh4/arcgis/rest/services/RDOF_Phase_III_CBG_Reserve/VectorTileServer',
       visible: false}) 
     //  Reserve_Blocks_No_Border.maxScale = maxScale;
        
             
       var Locations_No_Border_Tracts = new VectorTileLayer({
-      url: 'https://tiles.arcgis.com/tiles/YnOQrIGdN9JGtBh4/arcgis/rest/services/RDOF_Phase_II_CBG_Locations/VectorTileServer',
+      url: 'https://tiles.arcgis.com/tiles/YnOQrIGdN9JGtBh4/arcgis/rest/services/RDOF_Phase_III_CBG_Locations/VectorTileServer',
       visible: false})
     //  Locations_No_Border_Tracts.maxScale = maxScale;
       
@@ -574,7 +574,7 @@ var dojoConfig = {
       
 
       var BlocksFeatureLayer = new FeatureLayer({
-      url: "https://services.arcgis.com/YnOQrIGdN9JGtBh4/arcgis/rest/services/FinalEligibleBlockGroups/FeatureServer",
+      url: "https://services.arcgis.com/YnOQrIGdN9JGtBh4/arcgis/rest/services/Auction_904_Final_Eligible_Area/FeatureServer",
       visible: true
       });
      // BlocksFeatureLayer.minScale = 2199999;         
@@ -598,7 +598,7 @@ var dojoConfig = {
       Locations_Blocks_With_Border.minScale = minScale;
       
       var Reserve_Blocks_With_Border = new VectorTileLayer({
-      url: 'https://tiles.arcgis.com/tiles/YnOQrIGdN9JGtBh4/arcgis/rest/services/RDOF_PhaseII_CBG_Reserve/VectorTileServer',
+      url: 'https://tiles.arcgis.com/tiles/YnOQrIGdN9JGtBh4/arcgis/rest/services/RDOF_Phase_III_CBG_Reserve/VectorTileServer',
       visible: true})
       Reserve_Blocks_With_Border.minScale = minScale;
        
@@ -624,7 +624,7 @@ var dojoConfig = {
       Block_Borders_For_Support.visible = true;
   
     var split_blocks = new VectorTileLayer({
-      url: 'https://tiles.arcgis.com/tiles/YnOQrIGdN9JGtBh4/arcgis/rest/services/PartiallyEligibleBlocks/VectorTileServer',
+      url: 'https://tiles.arcgis.com/tiles/YnOQrIGdN9JGtBh4/arcgis/rest/services/RDOF_Phase_III_Partial_Blocks/VectorTileServer',
       visible: false})
   
 
@@ -1806,19 +1806,19 @@ $(function(){
                         <td>
                             <div class="key-symbol" style="background-color:#CCECE6"></div>
                         </td>
-                        <td>$70,001 - $210,000</td>
+                        <td>$70,001 - $215,000</td>
                     </tr>
                     <tr>
                         <td>
                             <div class="key-symbol" style="background-color:#66C2A4"></div>
                         </td>
-                        <td>$210,001 - $415,000</td>
+                        <td>$215,001 - $500,000</td>
                     </tr>
                     <tr>
                         <td>
                             <div class="key-symbol" style="background-color:#238B45"></div>
                         </td>
-                        <td>$415,001 - $1,000,000</td>
+                        <td>$500,001 - $1,000,000</td>
                     </tr>
                     <tr>
                         <td>
@@ -1844,31 +1844,31 @@ $(function(){
                         <td>
                             <div class="key-symbol" style="background-color:#FFF7F3"></div>
                         </td>
-                        <td>0 - 200</td>
+                        <td>0 - 100</td>
                     </tr>
                     <tr>
                         <td>
                             <div class="key-symbol" style="background-color:#FCC5C0"></div>
                         </td>
-                        <td>201 - 600</td>
+                        <td>101 - 250</td>
                     </tr>
                     <tr>
                         <td>
                             <div class="key-symbol" style="background-color:#F768A1"></div>
                         </td>
-                        <td>601 - 1,100</td>
+                        <td>251 - 450</td>
                     </tr>
                     <tr>
                         <td>
                             <div class="key-symbol" style="background-color:#AE017E"></div>
                         </td>
-                        <td>1,101 - 2,000</td>
+                        <td>451 - 1,000</td>
                     </tr>
                     <tr>
                         <td>
                             <div class="key-symbol" style="background-color:#49006A"></div>
                         </td>
-                        <td>2,000 - 4,300</td>
+                        <td>1,001 - 2,060</td>
                     </tr>
             </table>
         </div>          
