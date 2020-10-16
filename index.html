@@ -333,7 +333,7 @@ var dojoConfig = {
       
           var cbg_locs_template = {
           // autocasts as new PopupTemplate()
-          title: "Block Group: {cbg_id}",
+          title: "Block Group: {cenus_id}",
           content: [
             {
               type: "fields",
@@ -361,7 +361,7 @@ var dojoConfig = {
       
          var cbg_support_template = {
           // autocasts as new PopupTemplate()
-          title: "Block Group: {cbg_id}",
+          title: "Block Group: {cenus_id}",
           content: [
             {
               type: "fields",
@@ -388,7 +388,7 @@ var dojoConfig = {
         };
       
        var tracts_locs_template = {
-          title: "Tract: {cbg_id}",
+          title: "Tract: {cenus_id}",
           content: [
             {
 
@@ -417,7 +417,7 @@ var dojoConfig = {
       
       
          var tracts_support_template = {
-          title: "Tract: {cbg_id}",
+          title: "Tract: {cenus_id}",
           content: [
             {
 
@@ -446,7 +446,7 @@ var dojoConfig = {
       
       
           var tracts_area_template = {
-          title: "Tract: {cbg_id}",
+          title: "Tract: {cenus_id}",
           content: [
             {
 
@@ -475,7 +475,7 @@ var dojoConfig = {
       
           var cbg_area_template = {
           // autocasts as new PopupTemplate()
-          title: "Block Group: {cbg_id}",
+          title: "Block Group: {cenus_id}",
           content: [
             {
               type: "fields",
@@ -529,7 +529,7 @@ var dojoConfig = {
  
       // Block Borders 
       var Block_Borders = new VectorTileLayer({
-      url: 'https://tiles.arcgis.com/tiles/YnOQrIGdN9JGtBh4/arcgis/rest/services/RDOF_Phase_III_CBG_Borders/VectorTileServer'}) 
+      url: 'https://tiles.arcgis.com/tiles/YnOQrIGdN9JGtBh4/arcgis/rest/services/RDOF_Phase_III_CBG_Borders_Oct/VectorTileServer'}) 
       Block_Borders.minScale = minScaleBorder;
   
   
@@ -546,12 +546,12 @@ var dojoConfig = {
     
   
       var Coverage_Area_Tracts_No_Border = new VectorTileLayer({
-      url: 'https://tiles.arcgis.com/tiles/YnOQrIGdN9JGtBh4/arcgis/rest/services/RDOF_Phase_III_Coverage_Area/VectorTileServer'}) 
+      url: 'https://tiles.arcgis.com/tiles/YnOQrIGdN9JGtBh4/arcgis/rest/services/RDOF_Phase_III_Coverage_Area_Oct/VectorTileServer'}) 
       //Coverage_Area_Tracts_No_Border.maxScale = maxScale;
 
 
       var Locations_Blocks_No_Border = new VectorTileLayer({
-      url: 'https://tiles.arcgis.com/tiles/YnOQrIGdN9JGtBh4/arcgis/rest/services/dissolved_cbg_locations/VectorTileServer',
+      url: 'https://tiles.arcgis.com/tiles/YnOQrIGdN9JGtBh4/arcgis/rest/services/RDOF_Phase_III_CBG_Reserve_Oct/VectorTileServer',
       visible: false})
     //  Locations_Blocks_No_Border.maxScale = maxScale;
       
@@ -562,7 +562,7 @@ var dojoConfig = {
        
             
       var Locations_No_Border_Tracts = new VectorTileLayer({
-      url: 'https://tiles.arcgis.com/tiles/YnOQrIGdN9JGtBh4/arcgis/rest/services/RDOF_Phase_III_CBG_Locations/VectorTileServer',
+      url: 'https://tiles.arcgis.com/tiles/YnOQrIGdN9JGtBh4/arcgis/rest/services/RDOF_Phase_III_CBG_Locations_Oct/VectorTileServer',
       visible: false})
     //  Locations_No_Border_Tracts.maxScale = maxScale;
       
@@ -576,7 +576,7 @@ var dojoConfig = {
       
 
       var BlocksFeatureLayer = new FeatureLayer({
-      url: "https://services.arcgis.com/YnOQrIGdN9JGtBh4/arcgis/rest/services/Auction_904_Final_Eligible_Area/FeatureServer",
+      url: "https://services.arcgis.com/YnOQrIGdN9JGtBh4/arcgis/rest/services/Auction_904_ESRI_Shapefile/FeatureServer",
       visible: true
       });
      // BlocksFeatureLayer.minScale = 2199999;         
@@ -600,7 +600,7 @@ var dojoConfig = {
       Locations_Blocks_With_Border.minScale = minScale;
       
       var Reserve_Blocks_With_Border = new VectorTileLayer({
-      url: 'https://tiles.arcgis.com/tiles/YnOQrIGdN9JGtBh4/arcgis/rest/services/RDOF_Phase_III_CBG_Reserve/VectorTileServer',
+      url: 'https://tiles.arcgis.com/tiles/YnOQrIGdN9JGtBh4/arcgis/rest/services/RDOF_Phase_III_CBG_Reserve_Oct/VectorTileServer',
       visible: true})
       Reserve_Blocks_With_Border.minScale = minScale;
        
